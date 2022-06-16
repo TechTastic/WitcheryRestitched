@@ -1,6 +1,8 @@
 package net.techtastic.witcheryrestitched;
 
 import net.fabricmc.api.ModInitializer;
+import net.techtastic.witcheryrestitched.block.ModBlocks;
+import net.techtastic.witcheryrestitched.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,5 +12,9 @@ public class WitcheryRestitched implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
+
 	}
 }

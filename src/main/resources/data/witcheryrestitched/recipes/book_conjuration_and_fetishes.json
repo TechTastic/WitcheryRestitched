@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "IBF",
+    " S "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "W": {
+      "item": "witcheryrestitched:wood_ash"
+    },
+    "S": {
+      "item": "minecraft:flint_and_steel"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:book_conjuration_and_fetishes"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "#S#",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "witcheryrestitched:bone_needle",
+      "item": "minecraft:feather"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:witchs_ladder"
+  }
+}

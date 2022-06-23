@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "witcheryrestitched:item/bottles/taglock_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:isfull": 0
+      },
+      "model": "witcheryrestitched:item/taglock_empty"
+    },
+    {
+      "predicate": {
+        "minecraft:isfull": 1
+      },
+      "model": "witcheryrestitched:item/taglock_filled"
+    }
+  ]
+}

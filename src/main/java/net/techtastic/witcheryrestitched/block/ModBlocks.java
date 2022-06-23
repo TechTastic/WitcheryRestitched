@@ -3,6 +3,7 @@ package net.techtastic.witcheryrestitched.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -11,6 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock;
+import net.techtastic.witcheryrestitched.block.custom.GarlicCropBlock;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
 
 public class ModBlocks {
@@ -20,6 +22,9 @@ public class ModBlocks {
     public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
             new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
+    public static final Block GARLIC_CROP = registerBlockWithoutBlockItem("garlic_crop",
+            new GarlicCropBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
         return Registry.register(Registry.BLOCK, new Identifier(WitcheryRestitched.MOD_ID, name), block);
@@ -28,6 +33,10 @@ public class ModBlocks {
     private static Item registerBlockItem(String name, Block block, ItemGroup group) {
         return Registry.register(Registry.ITEM, new Identifier(WitcheryRestitched.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings().group(group)));
+    }
+
+    private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
+        return Registry.register(Registry.BLOCK, new Identifier(WitcheryRestitched.MOD_ID, name), block);
     }
 
     public static void registerModBlocks() {

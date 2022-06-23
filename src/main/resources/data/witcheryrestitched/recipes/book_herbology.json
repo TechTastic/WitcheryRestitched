@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "IBF",
+    " D "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "P": {
+      "item": "minecraft:poppy"
+    },
+    "D": {
+      "item": "minecraft:dandelion"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:book_herbology"
+  }
+}

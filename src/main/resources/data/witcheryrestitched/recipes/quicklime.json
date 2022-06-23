@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W"
+  ],
+  "key": {
+    "W": {
+      "item": "witcheryrestitched:wood_ash"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:quicklime"
+  }
+}

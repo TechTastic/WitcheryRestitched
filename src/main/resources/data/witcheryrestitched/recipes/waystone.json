@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FB"
+  ],
+  "key": {
+    "B": {
+      "item": "witcheryrestitched:bone_needle"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:waystone"
+  }
+}

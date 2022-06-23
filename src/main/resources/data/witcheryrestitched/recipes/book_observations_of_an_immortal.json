@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WSW",
+    "WBW",
+    "WGW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:nether_wart"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "G": {
+      "item": "witcheryrestitched:garlic"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:book_observations_of_an_immortal"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BF"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:bone_needle",
+    "count": 8
+  }
+}

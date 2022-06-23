@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "IBF",
+    " G "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "#": {
+      "item": "witcheryrestitched:belladonna_flower"
+    },
+    "G": {
+      "item": "witcheryrestitched:breath_of_the_goddess"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:book_distilling"
+  }
+}

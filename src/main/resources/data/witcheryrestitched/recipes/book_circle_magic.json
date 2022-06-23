@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "IBF",
+    " W "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "#": {
+      "item": "witcheryrestitched:belladonna_flower"
+    },
+    "W": {
+      "item": "witcheryrestitched:whiff_of_magic"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:book_circle_magic"
+  }
+}

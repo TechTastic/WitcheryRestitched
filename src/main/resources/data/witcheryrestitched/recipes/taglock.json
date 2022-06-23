@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BN"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "N": {
+      "item": "witcheryrestitched:bone_needle"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:taglock",
+    "count": 3
+  }
+}

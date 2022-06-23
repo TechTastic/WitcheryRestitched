@@ -1,5 +1,6 @@
 package net.techtastic.witcheryrestitched.mixin;
 
+import net.minecraft.block.entity.BedBlockEntity;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

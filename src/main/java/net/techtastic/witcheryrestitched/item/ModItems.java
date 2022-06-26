@@ -1,13 +1,17 @@
 package net.techtastic.witcheryrestitched.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.AliasedBlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
+import net.techtastic.witcheryrestitched.item.custom.ArthanaSwordItem;
+import net.techtastic.witcheryrestitched.item.custom.CastIronOvenItem;
 import net.techtastic.witcheryrestitched.item.custom.TaglockItem;
+import net.techtastic.witcheryrestitched.item.custom.ToeOfFrogItem;
 
 public class ModItems {
 
@@ -41,6 +45,9 @@ public class ModItems {
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     /* JAR ITEMS */
+
+    public static final Item CAST_IRON_OVEN_ITEM = registerItem("cast_iron_oven",
+            new CastIronOvenItem(ModBlocks.CAST_IRON_OVEN, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item UNFIRED_CLAY_JAR = registerItem("unfired_clay_jar",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
@@ -104,14 +111,17 @@ public class ModItems {
     public static final Item BELLADONNA_FLOWER = registerItem("belladonna_flower",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
-        public static final Item MANDRAKE_ROOT = registerItem("mandrake_root",
+    public static final Item MANDRAKE_ROOT = registerItem("mandrake_root",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    public static final Item MANDRAKE_SEEDS = registerItem("mandrake_seeds",
+            new AliasedBlockItem(ModBlocks.CROP_MANDRAKE_ROOT, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item WATER_ARTICHOKE_GLOBE = registerItem("water_artichoke_globe",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
-        public static final Item GARLIC = registerItem("garlic",
-            new AliasedBlockItem(ModBlocks.GARLIC_CROP, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+    public static final Item GARLIC = registerItem("garlic",
+            new AliasedBlockItem(ModBlocks.CROP_GARLIC, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item WOLFSBANE_FLOWER = registerItem("wolfsbane_flower",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
@@ -160,6 +170,11 @@ public class ModItems {
     public static final Item REFINED_EVIL = registerItem("refined_evil",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
+    public static final Item ARTHANA = registerItem("arthana",
+            new ArthanaSwordItem(ToolMaterials.GOLD, Items.GOLDEN_SWORD.getDefaultStack().getDamage(),
+                    Items.GOLDEN_SWORD.getDefaultStack().getMiningSpeedMultiplier(Blocks.STONE.getDefaultState()),
+                    new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+
     /* BOTTLES */
 
     public static final Item TAGLOCK = registerItem("taglock",
@@ -198,7 +213,7 @@ public class ModItems {
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item TOE_OF_FROG = registerItem("toe_of_frog",
-            new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+            new ToeOfFrogItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item OWLET_WING = registerItem("owlet_wing",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));

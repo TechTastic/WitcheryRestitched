@@ -1,0 +1,57 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.cast_iron_oven.open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1.16,
+			"bones": {
+				"RightDoor": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 120, 0]
+						}
+					}
+				},
+				"LeftDoor": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, -120, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.cast_iron_oven.close": {
+			"animation_length": 1.12,
+			"bones": {
+				"RightDoor": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 120, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"LeftDoor": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -120, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

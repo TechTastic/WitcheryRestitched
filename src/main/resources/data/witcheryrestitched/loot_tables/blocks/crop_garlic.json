@@ -16,10 +16,10 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "block": "witcheryrestitched:garlic_crop",
+                  "block": "witcheryrestitched:crop_garlic",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "age": "3"
+                    "age": "7"
                   }
                 }
               ],
@@ -35,13 +35,13 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.3,
+      "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "witcheryrestitched:garlic_crop",
+          "block": "witcheryrestitched:crop_garlic",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "age": "3"
+            "age": "7"
           }
         }
       ],

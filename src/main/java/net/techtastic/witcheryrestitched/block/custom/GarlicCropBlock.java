@@ -9,15 +9,8 @@ public class GarlicCropBlock extends CropBlock {
         super(settings);
     }
 
-    public static final int MAX_AGE = 3;
-
     @Override
     protected ItemConvertible getSeedsItem() {
         return ModItems.GARLIC;
-    }
-
-    @Override
-    public int getMaxAge() {
-        return 3;
     }
 }

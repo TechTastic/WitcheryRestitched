@@ -1,6 +1,26 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "witcheryrestitched:item/animal_parts/frog/toe_of_frog_temperate"
-  }
+    "layer0": "witcheryrestitched:item/animal_parts/frog/toe_of_frog_cold"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:fv": 0
+      },
+      "model": "witcheryrestitched:item/toe_of_frog_temperate"
+    },
+    {
+      "predicate": {
+        "minecraft:fv": 1
+      },
+      "model": "witcheryrestitched:item/toe_of_frog_warm"
+    },
+    {
+      "predicate": {
+        "minecraft:fv": 2
+      },
+      "model": "witcheryrestitched:item/toe_of_frog_cold"
+    }
+  ]
 }

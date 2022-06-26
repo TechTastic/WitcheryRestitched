@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "age=0": {"model": "witcheryrestitched:block/crop_mandrake_root_0"},
+    "age=1": {"model": "witcheryrestitched:block/crop_mandrake_root_1"},
+    "age=2": {"model": "witcheryrestitched:block/crop_mandrake_root_2"},
+    "age=3": {"model": "witcheryrestitched:block/crop_mandrake_root_3"},
+    "age=4": {"model": "witcheryrestitched:block/crop_mandrake_root_4"},
+    "age=5": {"model": "witcheryrestitched:block/crop_mandrake_root_5"},
+    "age=6": {"model": "witcheryrestitched:block/crop_mandrake_root_6"},
+    "age=7": {"model": "witcheryrestitched:block/crop_mandrake_root_7"}
+  }
+}

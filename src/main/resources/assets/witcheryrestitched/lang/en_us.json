@@ -21,6 +21,7 @@
 
   "item.witcheryrestitched.belladonna_flower": "Belladonna Flower",
   "item.witcheryrestitched.mandrake_root": "Mandrake Root",
+  "item.witcheryrestitched.mandrake_seeds": "Mandrake Seeds",
   "item.witcheryrestitched.water_artichoke_globe": "Water Artichoke Globe",
   "item.witcheryrestitched.garlic": "Garlic",
   "item.witcheryrestitched.wolfsbane_flower": "Wolfsbane Flower",
@@ -49,6 +50,8 @@
   "item.witcheryrestitched.witchs_ladder_shrieking": "Witch's Ladder (Shrieking)",
   "item.witcheryrestitched.refined_evil": "Refined Evil",
 
+  "item.witcheryrestitched.arthana": "Arthana",
+
   "item.witcheryrestitched.book_brews_and_infusions": "Brews and Infusions",
   "item.witcheryrestitched.book_circle_magic": "Circle Magic",
   "item.witcheryrestitched.book_collecting_fumes": "Collecting Fumes",
@@ -70,7 +73,8 @@
   "block.witcheryrestitched.empty_chalice": "Empty Chalice",
   "block.witcheryrestitched.cast_iron_oven": "Cast Iron Oven",
 
-  "block.witcheryrestitched.garlic_crop": "Garlic Crop",
+  "block.witcheryrestitched.crop_garlic": "Garlic Crop",
+  "block.witcheryrestitched.crop_mandrake_root": "Mandrake Root Crop",
 
   "itemGroup.witcheryrestitched.witcheryrestitched": "Witchery Restitched"
 }

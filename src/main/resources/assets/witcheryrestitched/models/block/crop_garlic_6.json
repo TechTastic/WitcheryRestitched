@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/crop",
   "textures": {
-    "crop": "witcheryrestitched:block/crops/garlic_crop_0"
+    "crop": "witcheryrestitched:block/crops/crop_garlic_6"
   }
 }

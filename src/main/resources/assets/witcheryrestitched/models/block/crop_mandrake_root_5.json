@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "witcheryrestitched:block/crops/crop_mandrake_root_5"
+  }
+}

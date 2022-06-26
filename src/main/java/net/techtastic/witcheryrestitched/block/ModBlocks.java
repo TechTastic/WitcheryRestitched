@@ -13,17 +13,21 @@ import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock;
 import net.techtastic.witcheryrestitched.block.custom.GarlicCropBlock;
+import net.techtastic.witcheryrestitched.block.custom.MandrakeCropBlock;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
 
 public class ModBlocks {
 
     public static final Block EMPTY_CHALICE = registerBlock("empty_chalice",
             new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque().dynamicBounds()), ModItemGroup.WITCHERYRESTITCHED);
-    public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
+    public static final Block CAST_IRON_OVEN = registerBlockWithoutBlockItem("cast_iron_oven",
             new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
-    public static final Block GARLIC_CROP = registerBlockWithoutBlockItem("garlic_crop",
-            new GarlicCropBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+    public static final Block CROP_GARLIC = registerBlockWithoutBlockItem("crop_garlic",
+            new GarlicCropBlock(FabricBlockSettings.of(Material.METAL)), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block CROP_MANDRAKE_ROOT = registerBlockWithoutBlockItem("crop_mandrake_root",
+            new MandrakeCropBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);

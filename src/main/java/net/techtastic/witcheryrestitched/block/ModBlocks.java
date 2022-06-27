@@ -20,7 +20,7 @@ public class ModBlocks {
 
     public static final Block EMPTY_CHALICE = registerBlock("empty_chalice",
             new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque().dynamicBounds()), ModItemGroup.WITCHERYRESTITCHED);
-    public static final Block CAST_IRON_OVEN = registerBlockWithoutBlockItem("cast_iron_oven",
+    public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
             new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     public static final Block CROP_GARLIC = registerBlockWithoutBlockItem("crop_garlic",

@@ -3,13 +3,10 @@ package net.techtastic.witcheryrestitched.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
-import net.techtastic.witcheryrestitched.item.custom.ArthanaSwordItem;
-import net.techtastic.witcheryrestitched.item.custom.CastIronOvenItem;
 import net.techtastic.witcheryrestitched.item.custom.TaglockItem;
 import net.techtastic.witcheryrestitched.item.custom.ToeOfFrogItem;
 
@@ -46,12 +43,8 @@ public class ModItems {
 
     /* JAR ITEMS */
 
-    public static final Item CAST_IRON_OVEN_ITEM = registerItem("cast_iron_oven",
-            new CastIronOvenItem(ModBlocks.CAST_IRON_OVEN, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
-
     public static final Item UNFIRED_CLAY_JAR = registerItem("unfired_clay_jar",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
-
     public static final Item CLAY_JAR = registerItem("clay_jar",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
@@ -169,11 +162,6 @@ public class ModItems {
 
     public static final Item REFINED_EVIL = registerItem("refined_evil",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
-
-    public static final Item ARTHANA = registerItem("arthana",
-            new ArthanaSwordItem(ToolMaterials.GOLD, Items.GOLDEN_SWORD.getDefaultStack().getDamage(),
-                    Items.GOLDEN_SWORD.getDefaultStack().getMiningSpeedMultiplier(Blocks.STONE.getDefaultState()),
-                    new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     /* BOTTLES */
 

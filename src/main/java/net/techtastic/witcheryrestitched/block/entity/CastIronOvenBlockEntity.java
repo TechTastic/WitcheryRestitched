@@ -2,20 +2,23 @@ package net.techtastic.witcheryrestitched.block.entity;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.random.RandomSplitter;
 import net.minecraft.world.World;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.recipe.CastIronOvenRecipe;
@@ -139,17 +142,20 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
     }
 
     private static boolean hasRecipe(CastIronOvenBlockEntity entity) {
-        World world = entity.world;
-        SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
-        for (int i = 0; i < entity.inventory.size(); i++) {
-            inventory.setStack(i, entity.getStack(i));
+        if (entity.inventory.get(1) != ItemStack.EMPTY) {
+            World world = entity.world;
+            SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
+            for (int i = 0; i < entity.inventory.size(); i++) {
+                inventory.setStack(i, entity.getStack(i));
+            }
+
+            Optional<CastIronOvenRecipe> match = world.getRecipeManager()
+                    .getFirstMatch(CastIronOvenRecipe.Type.INSTANCE, inventory, world);
+
+            return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
+                    && canInsertItemIntoOutputSlot(inventory, match.get().getOutput());
         }
-
-        Optional<CastIronOvenRecipe> match = world.getRecipeManager()
-                .getFirstMatch(CastIronOvenRecipe.Type.INSTANCE, inventory, world);
-
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().getOutput());
+        return false;
     }
 
     private static void craftItem(CastIronOvenBlockEntity entity) {
@@ -168,12 +174,8 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
             if (canInsertAmountIntoSecondaryOutputSlot(inventory) &&
                     canInsertItemIntoSecondaryOutputSlot(inventory, new ItemStack(match.get().getSecondaryOutput().getItem()))) {
 
-                double randomChance = Math.random();
-                double jarLuck = jarChance(entity, world);
-
-                WitcheryRestitched.LOGGER.info("The randomizer is " + randomChance + " and the jar chance is " + jarLuck);
-                if (randomChance < jarLuck) {
-                    WitcheryRestitched.LOGGER.info("Chance Applied!");
+                Random ran = Random.create();
+                if (ran.nextInt(100) < jarChance(entity, world)) {
                     entity.removeStack(2, 1);
                     entity.setStack(4, new ItemStack(match.get().getSecondaryOutput().getItem(),
                             entity.getStack(4).getCount() + 1));
@@ -207,46 +209,30 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
         return inventory.getStack(4).getMaxCount() > inventory.getStack(4).getCount();
     }
 
-    private static double jarBonus(ItemStack stack) {
-        ItemStack fumeFunnel = new ItemStack(Items.IRON_BLOCK);
-        ItemStack filteredFumeFunnel = new ItemStack(Items.DIAMOND_BLOCK);
-
-        WitcheryRestitched.LOGGER.info("This is an " + stack.getItem().getName());
-
-        if (stack == fumeFunnel) {
-            WitcheryRestitched.LOGGER.info("Its a fume funnel");
-            return 0.15;
-        } else if (stack == filteredFumeFunnel) {
-            WitcheryRestitched.LOGGER.info("Its a filtered fume funnel");
-            return 0.3;
+    private static int jarBonus(World world, BlockPos pos) {
+        if (world.getBlockState(pos).getBlock() == Blocks.IRON_BLOCK) {
+            return 15;
         }
-        return 0.0;
+        if (world.getBlockState(pos).getBlock() == Blocks.DIAMOND_BLOCK) {
+            return 30;
+        }
+        return 0;
     }
 
     private static double jarChance(CastIronOvenBlockEntity entity, World world) {
         BlockPos entityPos = entity.getPos();
-        ItemStack topNeighbor = new ItemStack(world.getBlockState(new BlockPos(entityPos.getX(), entityPos.getY() + 1, entityPos.getZ())).getBlock().asItem());
+        int aboveNeighbor = jarBonus(world, new BlockPos(entityPos.getX(), entityPos.getY() + 1, entityPos.getZ()));
 
         if (entity.world.getBlockState(entity.getPos()).get(FACING) == NORTH || entity.world.getBlockState(entity.getPos()).get(FACING) == SOUTH) {
-            WitcheryRestitched.LOGGER.info("The Oven is facing north or south!!");
-            ItemStack eastNeighbor = new ItemStack(world.getBlockState(new BlockPos(entityPos.getX() + 1, entityPos.getY(), entityPos.getZ())).getBlock().asItem());
-            ItemStack westNeighbor = new ItemStack(world.getBlockState(new BlockPos(entityPos.getX() - 1, entityPos.getY(), entityPos.getZ())).getBlock().asItem());
+            int eastNeighbor = jarBonus(world, new BlockPos(entityPos.getX() + 1, entityPos.getY(), entityPos.getZ()));
+            int westNeighbor = jarBonus(world, new BlockPos(entityPos.getX() - 1, entityPos.getY(), entityPos.getZ()));
 
-            double jarReturn = 0.1 + jarBonus(eastNeighbor) + jarBonus(westNeighbor);
-
-            WitcheryRestitched.LOGGER.info("The chance for north and south facing is " + jarReturn);
-
-            return jarReturn;
+            return 10 + eastNeighbor + westNeighbor + aboveNeighbor;
         } else {
-            WitcheryRestitched.LOGGER.info("The Oven is facing east or west!");
-            ItemStack northNeighbor = new ItemStack(world.getBlockState(new BlockPos(entityPos.getX(), entityPos.getY(), entityPos.getZ() - 1)).getBlock().asItem());
-            ItemStack southNeighbor = new ItemStack(world.getBlockState(new BlockPos(entityPos.getX(), entityPos.getY(), entityPos.getZ() + 1)).getBlock().asItem());
+            int northNeighbor = jarBonus(world, new BlockPos(entityPos.getX(), entityPos.getY(), entityPos.getZ() - 1));
+            int southNeighbor = jarBonus(world, new BlockPos(entityPos.getX(), entityPos.getY(), entityPos.getZ() + 1));
 
-            double jarReturn = 0.1 + jarBonus(northNeighbor) + jarBonus(southNeighbor);
-
-            WitcheryRestitched.LOGGER.info("The chance for north and south facing is " + jarReturn);
-
-            return jarReturn;
+            return 10 + northNeighbor + southNeighbor + aboveNeighbor;
         }
     }
 }

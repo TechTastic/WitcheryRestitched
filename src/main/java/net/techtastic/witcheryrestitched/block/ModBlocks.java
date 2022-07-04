@@ -14,6 +14,7 @@ import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock;
 import net.techtastic.witcheryrestitched.block.custom.GarlicCropBlock;
 import net.techtastic.witcheryrestitched.block.custom.MandrakeCropBlock;
+import net.techtastic.witcheryrestitched.block.custom.TestAltarBlock;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
 
 public class ModBlocks {
@@ -28,6 +29,11 @@ public class ModBlocks {
 
     public static final Block CROP_MANDRAKE_ROOT = registerBlockWithoutBlockItem("crop_mandrake_root",
             new MandrakeCropBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    //Test Blocks
+
+    public static final Block TEST_ALTAR = registerBlock("test_altar",
+            new TestAltarBlock(FabricBlockSettings.of(Material.METAL).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);

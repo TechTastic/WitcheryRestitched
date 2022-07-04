@@ -1,0 +1,14 @@
+{
+  "type": "witcheryrestitched:cast_iron_oven",
+  "ingredients": [
+    {
+      "tag": "witcheryrestitched:foul_fume_input"
+    }
+  ],
+  "output": {
+    "item": "witcheryrestitched:wood_ash"
+  },
+  "secondaryoutput": {
+    "item": "witcheryrestitched:foul_fume"
+  }
+}

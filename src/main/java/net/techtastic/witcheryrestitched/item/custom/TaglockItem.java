@@ -2,6 +2,8 @@ package net.techtastic.witcheryrestitched.item.custom;
 
 import net.fabricmc.fabric.impl.registry.sync.trackers.vanilla.BlockItemTracker;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
@@ -35,35 +37,25 @@ public class TaglockItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-
-        if (context.getWorld().getBlockEntity(context.getBlockPos()).getClass() == BedBlockEntity.class) {
-            UUID uuid = context.getPlayer().getUuid();
-            String displayName = context.getPlayer().getName().getString();
-            PlayerEntity user = context.getPlayer();
+        if (context.getWorld().getBlockState(context.getBlockPos()) == Blocks.RED_BED.getDefaultState()) {
+            PlayerEntity player = context.getPlayer();
             ItemStack stack = context.getStack();
+            UUID uuid = player.getUuid();
+            String displayName = String.valueOf(player.getDisplayName());
 
-            taglockEntity(uuid, displayName, user, stack);
+            taglockEntity(uuid, displayName, player, stack);
+
+            return ActionResult.PASS;
+        } else {
+            return super.useOnBlock(context);
         }
-
-        /*
-            Get Taglock FROM Blocks to Add:
-                Leech Chest
-                Thorny Rose
-
-            Apply Taglock TO Block to Add:
-                Effigy
-                Statue of the Hobgoblin
-                Crystal Ball
-         */
-
-        return ActionResult.PASS;
     }
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 
         Text name = Text.empty();
-        if (user.getHeadYaw() < (entity.getBodyYaw() + 0.1) || user.getHeadYaw() > (entity.getBodyYaw() - 0.1)) {
+        if (user.getHeadYaw() < (entity.getBodyYaw() + 0.05) || user.getHeadYaw() > (entity.getBodyYaw() - 0.05)) {
             if (entity.isPlayer()) {
                 name = entity.getDisplayName();
             } else {

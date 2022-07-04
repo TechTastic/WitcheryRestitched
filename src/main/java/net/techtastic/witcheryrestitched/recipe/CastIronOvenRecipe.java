@@ -11,8 +11,6 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-import java.awt.*;
-
 public class CastIronOvenRecipe implements Recipe<SimpleInventory> {
     private final Identifier id;
     private final ItemStack output;

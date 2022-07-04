@@ -1,0 +1,14 @@
+{
+  "type": "witcheryrestitched:cast_iron_oven",
+  "ingredients": [
+    {
+      "item": "minecraft:spruce_sapling"
+    }
+  ],
+  "output": {
+    "item": "witcheryrestitched:wood_ash"
+  },
+  "secondaryoutput": {
+    "item": "witcheryrestitched:hint_of_rebirth"
+  }
+}

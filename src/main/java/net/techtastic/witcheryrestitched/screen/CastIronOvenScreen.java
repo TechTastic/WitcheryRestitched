@@ -36,7 +36,7 @@ public class CastIronOvenScreen extends HandledScreen<CastIronOvenScreenHandler>
         }
 
         if(handler.hasFuel()) {
-            drawTexture(matrices, x + 44, y + 37 + 14 - handler.getScaledFuelProgress(), 176,
+            drawTexture(matrices, x + 44, y + 38 + 14 - handler.getScaledFuelProgress(), 176,
                     14 - handler.getScaledFuelProgress(), 14, handler.getScaledFuelProgress());
         }
     }

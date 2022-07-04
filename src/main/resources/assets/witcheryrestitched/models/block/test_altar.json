@@ -1,0 +1,6 @@
+{
+	"parent":  "cube_all",
+	"textures": {
+		"0": "witcheryrestitched:block/empty_chalice"
+	}
+}

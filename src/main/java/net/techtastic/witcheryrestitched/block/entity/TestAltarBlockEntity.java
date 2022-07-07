@@ -13,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class TestAltarBlockEntity extends BlockEntity {
 
-    public int maxAltarPower = -1;
-    public int maxRange = -1;
-    public int rechargeRate = -1;
+    public int maxAltarPower = 0;
+    public int maxRange = 16;
+    public int rechargeRate = 1;
     public boolean isMultiblock = false;
     public boolean isMasterBlock = false;
     public BlockPos masterBlockPos = this.pos;
@@ -76,21 +76,9 @@ public class TestAltarBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        if (this.maxAltarPower != -1) {
-            nbt.putInt("witcheryrestitched:maxaltarpower", this.maxAltarPower);
-        } else {
-            nbt.putInt("witcheryrestitched:maxaltarpower", 0);
-        }
-        if (this.maxRange != -1) {
-            nbt.putInt("witcheryrestitched:maxrange", this.maxRange);
-        } else {
-            nbt.putInt("witcheryrestitched:maxrange", 16);
-        }
-        if (this.rechargeRate != -1) {
-            nbt.putInt("witcheryrestitched:rechargerate", this.rechargeRate);
-        } else {
-            nbt.putInt("witcheryrestitched:rechargerate", 1);
-        }
+        nbt.putInt("witcheryrestitched:maxaltarpower", this.maxAltarPower);
+        nbt.putInt("witcheryrestitched:maxrange", this.maxRange);
+        nbt.putInt("witcheryrestitched:rechargerate", this.rechargeRate);
 
         super.writeNbt(nbt);
     }

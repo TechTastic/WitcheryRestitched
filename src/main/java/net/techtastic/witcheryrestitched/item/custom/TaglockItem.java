@@ -1,12 +1,15 @@
 package net.techtastic.witcheryrestitched.item.custom;
 
+import com.eliotlash.mclib.math.functions.classic.Mod;
 import net.fabricmc.fabric.impl.registry.sync.trackers.vanilla.BlockItemTracker;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -25,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockLocating;
 import net.minecraft.world.World;
 import net.techtastic.witcheryrestitched.item.ModItems;
+import net.techtastic.witcheryrestitched.util.ModdedBedBlockInterface;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -37,13 +41,13 @@ public class TaglockItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if (context.getWorld().getBlockState(context.getBlockPos()) == Blocks.RED_BED.getDefaultState()) {
-            PlayerEntity player = context.getPlayer();
-            ItemStack stack = context.getStack();
-            UUID uuid = player.getUuid();
-            String displayName = String.valueOf(player.getDisplayName());
+        BlockEntity bed = context.getWorld().getBlockEntity(context.getBlockPos());
+        if (!bed.equals(null) && bed.getType().equals(BlockEntityType.BED) && true) {
+            ModdedBedBlockInterface Ibed = (ModdedBedBlockInterface) bed;
 
-            taglockEntity(uuid, displayName, player, stack);
+            if (Ibed.wasUsed()) {
+                taglockEntity(Ibed.getUserUuid(), Ibed.getUserName(), context.getPlayer(), context.getStack());
+            }
 
             return ActionResult.PASS;
         } else {
@@ -55,7 +59,7 @@ public class TaglockItem extends Item {
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 
         Text name = Text.empty();
-        if (user.getHeadYaw() < (entity.getBodyYaw() + 0.05) || user.getHeadYaw() > (entity.getBodyYaw() - 0.05)) {
+        if (user.getHeadYaw() < (entity.getBodyYaw() + 0.01) || user.getHeadYaw() > (entity.getBodyYaw() - 0.01)) {
             if (entity.isPlayer()) {
                 name = entity.getDisplayName();
             } else {

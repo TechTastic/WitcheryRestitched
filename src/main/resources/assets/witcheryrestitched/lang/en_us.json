@@ -76,5 +76,21 @@
   "block.witcheryrestitched.crop_garlic": "Garlic Crop",
   "block.witcheryrestitched.crop_mandrake_root": "Mandrake Root Crop",
 
+  "block.witcheryrestitched.rowan_log": "Rowan Log",
+  "block.witcheryrestitched.stripped_rowan_log": "Stripped Rowan Log",
+  "block.witcheryrestitched.rowan_wood": "Rowan wood",
+  "block.witcheryrestitched.stripped_rowan_wood": "Stripped Rowan Wood",
+  "block.witcheryrestitched.rowan_leaves": "Rowan Leaves",
+  "block.witcheryrestitched.rowan_planks": "Rowan Planks",
+  "block.witcheryrestitched.rowan_sapling": "Rowan Sapling",
+
+  "block.witcheryrestitched.alder_log": "Alder Log",
+  "block.witcheryrestitched.stripped_alder_log": "Stripped Alder Log",
+  "block.witcheryrestitched.alder_wood": "Alder Wood",
+  "block.witcheryrestitched.stripped_alder_wood": "Stripped Alder Wood",
+  "block.witcheryrestitched.alder_leaves": "Alder Leaves",
+  "block.witcheryrestitched.alder_planks": "Alder Planks",
+  "block.witcheryrestitched.alder_sapling": "Alder Sapling",
+
   "itemGroup.witcheryrestitched.witcheryrestitched": "Witchery Restitched"
 }

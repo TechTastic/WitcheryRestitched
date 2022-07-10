@@ -4,6 +4,9 @@
   "package": "net.techtastic.witcheryrestitched.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockEntityMixin",
+    "BedBlockEntityMixin",
+    "BedBlockMixin"
   ],
   "client": [
     "ExampleMixin"

@@ -8,6 +8,8 @@
     "minecraft:acacia_log",
     "minecraft:dark_oak_log",
     "minecraft:mangrove_log",
+    "witcheryrestitched:rowan_log",
+
     "minecraft:stripped_oak_log",
     "minecraft:stripped_spruce_log",
     "minecraft:stripped_birch_log",
@@ -15,6 +17,8 @@
     "minecraft:stripped_acacia_log",
     "minecraft:stripped_dark_oak_log",
     "minecraft:stripped_mangrove_log",
+    "witcheryrestitched:stripped_rowan_log",
+
     "minecraft:oak_wood",
     "minecraft:spruce_wood",
     "minecraft:birch_wood",
@@ -22,6 +26,8 @@
     "minecraft:acacia_wood",
     "minecraft:dark_oak_wood",
     "minecraft:mangrove_wood",
+    "witcheryrestitched:rowan_wood",
+
     "minecraft:stripped_oak_wood",
     "minecraft:stripped_spruce_wood",
     "minecraft:stripped_birch_wood",
@@ -29,6 +35,8 @@
     "minecraft:stripped_acacia_wood",
     "minecraft:stripped_dark_oak_wood",
     "minecraft:stripped_mangrove_wood",
+    "witcheryrestitched:stripped_rowan_wood",
+
     "minecraft:jungle_sapling",
     "minecraft:acacia_sapling",
     "minecraft:dark_oak_sapling"

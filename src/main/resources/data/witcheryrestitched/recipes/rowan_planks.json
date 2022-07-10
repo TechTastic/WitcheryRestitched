@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L",
+    "",
+    ""
+  ],
+  "key": {
+    "L": {
+      "item": "witcheryrestitched:rowan_log"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:rowan_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "witcheryrestitched:rowan_log",
+    "witcheryrestitched:stripped_rowan_log",
+    "witcheryrestitched:rowan_wood",
+    "witcheryrestitched:stripped_rowan_wood",
+    "witcheryrestitched:alder_log",
+    "witcheryrestitched:stripped_alder_log",
+    "witcheryrestitched:alder_wood",
+    "witcheryrestitched:stripped_alder_wood"
+  ]
+}

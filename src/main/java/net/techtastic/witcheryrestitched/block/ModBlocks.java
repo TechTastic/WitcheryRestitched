@@ -30,7 +30,7 @@ public class ModBlocks {
             new MandrakeCropBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     // ALTAR BLOCKS
-    public static final Block ALTAR = registerBlock("altar",
+    public static final Block ALTAR = registerBlock("altar_block",
             new AltarBlock(FabricBlockSettings.of(Material.STONE).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     // TREES

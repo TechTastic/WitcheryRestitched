@@ -3,24 +3,15 @@ package net.techtastic.witcheryrestitched.util;
 import java.util.UUID;
 
 public interface ModdedBedBlockInterface {
-    default boolean wasUsed() {
-        return false;
-    }
+    boolean WitcheryRestitched$wasUsed();
 
-    default void setUsed(boolean sleptIn) {
-    }
+    void WitcheryRestitched$setUsed(boolean sleptIn);
 
-    default UUID getUserUuid() {
-        return null;
-    }
+    UUID WitcheryRestitched$getUserUuid();
 
-    default void setUserUuid(UUID sleptUuid) {
-    }
+    void WitcheryRestitched$setUserUuid(UUID sleptUuid);
 
-    default String getUserName() {
-        return "";
-    }
+    String WitcheryRestitched$getUserName();
 
-    default void setUserName(String sleptName) {
-    }
+    void WitcheryRestitched$setUserName(String sleptName);
 }

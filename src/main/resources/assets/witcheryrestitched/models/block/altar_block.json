@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "witcheryrestitched:block/altar_base",
+    "side": "witcheryrestitched:block/altar_side"
+  }
+}

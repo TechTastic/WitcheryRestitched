@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "multiblock=false": { "model": "witcheryrestitched:block/altar_block" },
+    "multiblock=true": { "model": "witcheryrestitched:block/altar_multiblock" }
+  }
+}
+

@@ -4,15 +4,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
+import net.techtastic.witcheryrestitched.block.custom.AltarBlock;
 import org.jetbrains.annotations.Nullable;
+
+import static net.techtastic.witcheryrestitched.block.custom.AltarBlock.MULTIBLOCK;
 
 public class AltarBlockEntity extends BlockEntity {
 
@@ -20,6 +25,8 @@ public class AltarBlockEntity extends BlockEntity {
     private boolean isMultiblock = false;
     private boolean isMasterBlock = false;
     private BlockPos masterBlockPos = this.pos;
+    
+    private BlockBox structure = null;
 
     //ALTAR POWER VARIABLES
     private int maxAltarPower = 0;
@@ -77,6 +84,9 @@ public class AltarBlockEntity extends BlockEntity {
     // MULTIBLOCK GETTERS AND SETTERS
 
     public boolean isMultiblock() {
+        /*if (!this.isMultiblock) {
+            WitcheryRestitched.LOGGER.info("THIS WAS NOT A MULTIBLOCK!");
+        }*/
         return this.isMultiblock;
     }
     public void setMultiblock(boolean bool) {
@@ -97,6 +107,14 @@ public class AltarBlockEntity extends BlockEntity {
         this.masterBlockPos = pos;
     }
 
+    public BlockBox getStructure() {
+        return this.structure;
+    }
+
+    public void setStructure(BlockBox structure) {
+        this.structure = structure;
+    }
+
     // TICKER
 
     private int getTicks() {
@@ -112,78 +130,150 @@ public class AltarBlockEntity extends BlockEntity {
     }
 
     // TICK UPDATE METHODS
-    public AltarBlockEntity[] checkMultiblock(World world, BlockPos pos) {
-        //WitcheryRestitched.LOGGER.info("Checking Multiblock...");
 
+    public void validateMultiblock(World world, BlockPos pos, BlockBox multiblock) {
+        int altarCount = 0;
+        BlockPos.Mutable testPos = new BlockPos.Mutable();
+        for (int x = multiblock.getMinX(); x < multiblock.getMaxX() + 1; x++) {
+            for (int z = multiblock.getMinZ(); z < multiblock.getMaxZ() + 1; z++) {
+                if (world.getBlockState(testPos.set(x, pos.getY(), z)).getBlock() == ModBlocks.ALTAR) {
+                    altarCount++;
+                }
+            }
+        }
+
+        if (altarCount == 6) {
+            for (int x = multiblock.getMinX(); x < multiblock.getMaxX() + 1; x++) {
+                for (int z = multiblock.getMinZ(); z < multiblock.getMaxZ() + 1; z++) {
+                    AltarBlockEntity altar = (AltarBlockEntity) world.getBlockEntity(testPos.set(x, pos.getY(), z));
+                    altar.setMultiblock(true);
+                    altar.setMasterBlockPos(multiblock.getCenter());
+                    if (testPos == multiblock.getCenter()) {
+                        altar.setMasterBlock(true);
+                    }
+
+                    altar.setStructure(multiblock);
+
+                    altar.markDirty();
+
+                    world.setBlockState(testPos, world.getBlockState(testPos).with(MULTIBLOCK, true));
+                }
+            }
+        } else {
+            for (int x = multiblock.getMinX(); x < multiblock.getMaxX() + 1; x++) {
+                for (int z = multiblock.getMinZ(); z < multiblock.getMaxZ() + 1; z++) {
+                    if (world.getBlockState(testPos.set(x, pos.getY(), z)).getBlock() == ModBlocks.ALTAR) {
+                        AltarBlockEntity altar = (AltarBlockEntity) world.getBlockEntity(testPos.set(x, pos.getY(), z));
+                        altar.setMultiblock(false);
+                        altar.setMasterBlockPos(testPos);
+                        altar.setMasterBlock(false);
+
+                        altar.setStructure(null);
+
+                        altar.markDirty();
+
+                        world.setBlockState(testPos, world.getBlockState(testPos).with(MULTIBLOCK, false));
+                    }
+                }
+            }
+        }
+    }
+
+    public BlockBox getPossibleMultiblock(World world, BlockPos pos) {
+        BlockBox multiblock = null;
+        
         Block[] neighbors = new Block[4];
-
         neighbors[0] = world.getBlockState(pos.north()).getBlock();
         neighbors[1] = world.getBlockState(pos.east()).getBlock();
         neighbors[2] = world.getBlockState(pos.south()).getBlock();
         neighbors[3] = world.getBlockState(pos.west()).getBlock();
+        
+        int altarCount = 0;
+        for (int i = 0; i < 4; i++) {
+            if (neighbors[i] == ModBlocks.ALTAR) {
+                altarCount++;
+            }
+        }
+        
+        if (altarCount == 2) {
+            if (neighbors[0] == ModBlocks.ALTAR && neighbors[1] == ModBlocks.ALTAR && true) {
+                //THIS BLOCK IS A CORNER BLOCK IN THE SOUTHWEST
+                
+                if (world.getBlockState(pos.north().north()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS VERTICAL
+                    
+                    multiblock = BlockBox.create(pos, pos.north().north().east());
+                } else if (world.getBlockState(pos.east().east()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS HORIZONTAL
 
-        AltarBlockEntity[] altarBlocks = new AltarBlockEntity[6];
-
-        altarBlocks[0] = (AltarBlockEntity) world.getBlockEntity(pos);
-
-        if (neighbors[0] == ModBlocks.ALTAR && neighbors[2] == ModBlocks.ALTAR && true) {
-            altarBlocks[1] = (AltarBlockEntity) world.getBlockEntity(pos.north());
-            altarBlocks[2] = (AltarBlockEntity) world.getBlockEntity(pos.south());
-
-            if (neighbors[1] == ModBlocks.ALTAR) {
-                altarBlocks[3] = (AltarBlockEntity) world.getBlockEntity(pos.east());
-
-                if (world.getBlockState(altarBlocks[3].getPos().north()).getBlock() == ModBlocks.ALTAR &&
-                        world.getBlockState(altarBlocks[3].getPos().south()).getBlock() == ModBlocks.ALTAR && true) {
-                    altarBlocks[4] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().north());
-                    altarBlocks[5] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().south());
+                    multiblock = BlockBox.create(pos, pos.east().east().north());
                 }
-            } else if (neighbors[3] == ModBlocks.ALTAR) {
-                altarBlocks[3] = (AltarBlockEntity) world.getBlockEntity(pos.west());
+            } else if (neighbors[0] == ModBlocks.ALTAR && neighbors[3] == ModBlocks.ALTAR && true) {
+                //THIS BLOCK IS A CORNER BLOCK IN THE SOUTHEAST
 
-                if (world.getBlockState(altarBlocks[3].getPos().north()).getBlock() == ModBlocks.ALTAR &&
-                        world.getBlockState(altarBlocks[3].getPos().south()).getBlock() == ModBlocks.ALTAR && true) {
-                    altarBlocks[4] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().north());
-                    altarBlocks[5] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().south());
+                if (world.getBlockState(pos.north().north()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS VERTICAL
+
+                    multiblock = BlockBox.create(pos, pos.north().north().west());
+                } else if (world.getBlockState(pos.west().west()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS HORIZONTAL
+
+                    multiblock = BlockBox.create(pos, pos.west().west().north());
+                }
+            } else if (neighbors[2] == ModBlocks.ALTAR && neighbors[1] == ModBlocks.ALTAR && true) {
+                //THIS BLOCK IS A CORNER BLOCK IN THE NORTHWEST
+
+                if (world.getBlockState(pos.south().south()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS VERTICAL
+
+                    multiblock = BlockBox.create(pos, pos.south().south().east());
+                } else if (world.getBlockState(pos.east().east()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS HORIZONTAL
+
+                    multiblock = BlockBox.create(pos, pos.east().east().south());
+                }
+            } else if (neighbors[2] == ModBlocks.ALTAR && neighbors[3] == ModBlocks.ALTAR && true) {
+                //THIS BLOCK IS A CORNER BLOCK IN THE NORTHEAST
+
+                if (world.getBlockState(pos.south().south()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS VERTICAL
+
+                    multiblock = BlockBox.create(pos, pos.south().south().west());
+                } else if (world.getBlockState(pos.west().west()).getBlock() == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS HORIZONTAL
+
+                    multiblock = BlockBox.create(pos, pos.west().west().south());
                 }
             }
-        } else if (neighbors[1] == ModBlocks.ALTAR && neighbors[3] == ModBlocks.ALTAR && true) {
-            altarBlocks[1] = (AltarBlockEntity) world.getBlockEntity(pos.east());
-            altarBlocks[2] = (AltarBlockEntity) world.getBlockEntity(pos.west());
+        } else if (altarCount == 3) {
+            if (neighbors[0] == ModBlocks.ALTAR && neighbors[2] == ModBlocks.ALTAR) {
+                //THIS IS A CENTER BLOCK IN A VERTICAL MULTIBLOCK
+                
+                if (neighbors[1] == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS FACING EAST
+                    
+                    multiblock = BlockBox.create(pos.south(), pos.north().east());
+                } else if (neighbors[3] == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS FACING WEST
 
-            if (neighbors[0] == ModBlocks.ALTAR) {
-                altarBlocks[3] = (AltarBlockEntity) world.getBlockEntity(pos.north());
-
-                if (world.getBlockState(altarBlocks[3].getPos().east()).getBlock() == ModBlocks.ALTAR &&
-                        world.getBlockState(altarBlocks[3].getPos().west()).getBlock() == ModBlocks.ALTAR && true) {
-                    altarBlocks[4] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().east());
-                    altarBlocks[5] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().west());
+                    multiblock = BlockBox.create(pos.south(), pos.north().west());
                 }
-            } else if (neighbors[2] == ModBlocks.ALTAR) {
-                altarBlocks[3] = (AltarBlockEntity) world.getBlockEntity(pos.south());
+            } else if (neighbors[1] == ModBlocks.ALTAR && neighbors[3] == ModBlocks.ALTAR) {
+                //THIS IS A CENTER BLOCK IN A HORIZONAL MULTIBLOCK
 
-                if (world.getBlockState(altarBlocks[3].getPos().east()).getBlock() == ModBlocks.ALTAR &&
-                        world.getBlockState(altarBlocks[3].getPos().west()).getBlock() == ModBlocks.ALTAR && this.getPos() == pos) {
-                    altarBlocks[4] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().east());
-                    altarBlocks[5] = (AltarBlockEntity) world.getBlockEntity(altarBlocks[3].getPos().west());
+                if (neighbors[0] == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS FACING NORTH
+
+                    multiblock = BlockBox.create(pos.east(), pos.west().north());
+                } else if (neighbors[2] == ModBlocks.ALTAR) {
+                    //THE MULTIBLOCK IS FACING SOUTH
+
+                    multiblock = BlockBox.create(pos.east(), pos.west().south());
                 }
             }
         }
-
-        if (altarBlocks[5] == null) {
-            for (int i = 0; i < 6; i++) {
-                if (altarBlocks[i] != null) {
-                    altarBlocks[i].setMultiblock(false);
-                    altarBlocks[i].setMasterBlock(false);
-                    altarBlocks[i].setMasterBlockPos(altarBlocks[i].getPos());
-
-                    altarBlocks[i].markDirty();
-                }
-                altarBlocks[i] = null;
-            }
-        }
-
-        return altarBlocks;
+        
+        return multiblock;
     }
 
     public void updateCurrentAltarPower() {
@@ -194,30 +284,22 @@ public class AltarBlockEntity extends BlockEntity {
 
         if (currentAltarPower != maxAltarPower) {
             if (currentAltarPower >= maxAltarPower - currentAltarPower) {
-                WitcheryRestitched.LOGGER.info(maxAltarPower + ": New Current Altar Power");
+                //WitcheryRestitched.LOGGER.info(maxAltarPower + ": New Current Altar Power");
                 this.setCurrentAltarPower(maxAltarPower);
             } else {
-                WitcheryRestitched.LOGGER.info(String.valueOf(currentAltarPower + basePowerIncrement * altarRate) + ": New Current Altar Power");
+                //WitcheryRestitched.LOGGER.info(String.valueOf(currentAltarPower + basePowerIncrement * altarRate) + ": New Current Altar Power");
                 this.setCurrentAltarPower(currentAltarPower + (basePowerIncrement * altarRate));
             }
         }
     }
 
-    public void updateMaxAltarPower(World world, BlockPos pos, AltarBlockEntity[] altarBlocks) {
-        WitcheryRestitched.LOGGER.info("Updating Max Altar Power...");
+    /*public void updateMaxAltarPower(World world, BlockPos pos) {
+        //WitcheryRestitched.LOGGER.info("Updating Max Altar Power...");
 
         //GET STUFF ON TOP OF ALTAR
         int maxAltarPower = 0;
         int rate = 1;
         int range = 16;
-
-        Block[] onTop = new Block[6];
-        onTop[0] = world.getBlockState(altarBlocks[0].getPos().up()).getBlock();
-        onTop[1] = world.getBlockState(altarBlocks[1].getPos().up()).getBlock();
-        onTop[2] = world.getBlockState(altarBlocks[2].getPos().up()).getBlock();
-        onTop[3] = world.getBlockState(altarBlocks[3].getPos().up()).getBlock();
-        onTop[4] = world.getBlockState(altarBlocks[4].getPos().up()).getBlock();
-        onTop[5] = world.getBlockState(altarBlocks[5].getPos().up()).getBlock();
 
         for (int i = 0; i < 6; i++) {
             if (onTop[i] == Blocks.DIAMOND_BLOCK) {
@@ -239,41 +321,44 @@ public class AltarBlockEntity extends BlockEntity {
         this.setMaxAltarPower(maxAltarPower);
         this.setAltarRate(rate);
         this.setAltarRange(range);
-    }
+    }*/
 
     public static void tick(World world1, BlockPos pos, BlockState state1, AltarBlockEntity be) {
         if (be.isMultiblock() && be.isMasterBlock() && true) {
-
-            //CHECK STRUCTURE EVERY 5 TICKS
-            if (be.getTicks() % 5 == 0) {
-
-                //CHECK STRUCTURE
-                AltarBlockEntity[] altarBlocks = be.checkMultiblock(world1, pos);
-
-                //CHANGE CURRENT ALTAR POWER EVERY 20 TICKS
-                if (be.getTicks() % 20 == 0) {
-
-                    //CHANGE CURRENT ALTAR POWER
-                    be.updateCurrentAltarPower();
+            
+            if (be.getTicks() % 10 == 0) {
+                BlockBox potentialMultiblock;
+                if (be.getStructure() != null) {
+                    potentialMultiblock = be.getStructure();
+                } else {
+                    potentialMultiblock = be.getPossibleMultiblock(world1, pos);
                 }
-
-                //GET ORIENTATION AND CHECK FOR NATURE EVERY 100 TICKS
-                if (be.getTicks() % 50 == 0) {
-                    // SET MAX ALTAR POWER BASED ON NATURE
-                    be.updateMaxAltarPower(world1, pos, altarBlocks);
-                    be.markDirty();
-
-                    //CHANGE CURRENT POWER IF OVER NEW MAX
-                    be.updateCurrentAltarPower();
-
-                    be.resetTicks();
+                if (potentialMultiblock != null) {
+                    be.validateMultiblock(world1, pos, potentialMultiblock);
                 }
             }
 
-            be.incrementTicks();
-            be.markDirty();
+            //CHANGE CURRENT ALTAR POWER EVERY 20 TICKS
+            if (be.getTicks() % 20 == 0) {
+
+                //CHANGE CURRENT ALTAR POWER
+                be.updateCurrentAltarPower();
+            }
+
+            //GET ORIENTATION AND CHECK FOR NATURE EVERY 100 TICKS
+            if (be.getTicks() % 50 == 0) {
+
+                // SET MAX ALTAR POWER BASED ON NATURE
+                //be.updateMaxAltarPower(world1, pos);
+                be.markDirty();
+
+                //CHANGE CURRENT POWER IF OVER NEW MAX
+                be.updateCurrentAltarPower();
+
+                be.resetTicks();
+            }
         }
-        be.markDirty();
+        be.incrementTicks();
     }
 
     // NBT DATA
@@ -288,6 +373,21 @@ public class AltarBlockEntity extends BlockEntity {
         nbt.putDouble("witcheryrestitched:masterBlockZ", this.masterBlockPos.getZ());
         nbt.putBoolean("witcheryrestitched:ismultiblock", this.isMultiblock);
         nbt.putBoolean("witcheryrestitched:ismasterblock", this.isMasterBlock);
+
+        int[] structureArray = new int[6];
+        if (this.structure != null) {
+            structureArray[0] = this.structure.getMinX();
+            structureArray[1] = this.structure.getMinY();
+            structureArray[2] = this.structure.getMinZ();
+            structureArray[3] = this.structure.getMaxX();
+            structureArray[4] = this.structure.getMaxY();
+            structureArray[5] = this.structure.getMaxZ();
+        } else {
+            for (int i = 0; i < 6; i++) {
+                structureArray[i] = 0;
+            }
+        }
+        nbt.putIntArray("witcheryrestitched:structure", structureArray);
 
         //ALTAR POWER NBT DATA
 
@@ -310,6 +410,19 @@ public class AltarBlockEntity extends BlockEntity {
                 nbt.getDouble("witcheryrestitched:masterBlockZ"));
         this.isMultiblock = nbt.getBoolean("witcheryrestitched:ismultiblock");
         this.isMasterBlock = nbt.getBoolean("witcheryrestitched:ismultiblock");
+
+        int[] structureArray = nbt.getIntArray("witcheryrestitched:structure");
+        int[] test = new int[6];
+        for (int i = 0; i < 6; i++) {
+            test[i] = 0;
+        }
+        if (structureArray != test) {
+            this.structure = new BlockBox(structureArray[0], structureArray[1], structureArray[2], structureArray[3], structureArray[4], structureArray[5]);
+        } else {
+            this.structure = null;
+        }
+
+
 
         //ALTAR POWER NBT DATA
 

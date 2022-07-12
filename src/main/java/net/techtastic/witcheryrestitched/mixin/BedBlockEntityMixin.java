@@ -17,65 +17,58 @@ public class BedBlockEntityMixin extends BlockEntityMixin implements ModdedBedBl
 
 	// VARIABLES
 
-	private boolean hasBeenUsed = false;
-	private UUID userUuid = null;
-	private String userName = "";
+	private boolean WitcheryRestitched$hasBeenUsed = false;
+	private UUID WitcheryRestitched$userUuid = UUID.randomUUID();
+	private String WitcheryRestitched$userName = "";
 
 	// FROM INTERFACE
 	@Override
-	public boolean wasUsed() {
-		return this.hasBeenUsed;
+	public boolean WitcheryRestitched$wasUsed() {
+		return this.WitcheryRestitched$hasBeenUsed;
 	}
 
 	@Override
-	public void setUsed(boolean sleptIn) {
-		this.hasBeenUsed = sleptIn;
+	public void WitcheryRestitched$setUsed(boolean sleptIn) {
+		this.WitcheryRestitched$hasBeenUsed = sleptIn;
 	}
 
 	@Override
-	public UUID getUserUuid() {
-		return this.userUuid;
+	public UUID WitcheryRestitched$getUserUuid() {
+		return this.WitcheryRestitched$userUuid;
 	}
 
 	@Override
-	public void setUserUuid(UUID sleptUuid) {
-		this.userUuid = sleptUuid;
+	public void WitcheryRestitched$setUserUuid(UUID sleptUuid) {
+		this.WitcheryRestitched$userUuid = sleptUuid;
 	}
 
 	@Override
-	public String getUserName() {
-		return this.userName;
+	public String WitcheryRestitched$getUserName() {
+		return this.WitcheryRestitched$userName;
 	}
 
 	@Override
-	public void setUserName(String sleptName) {
-		this.userName = sleptName;
+	public void WitcheryRestitched$setUserName(String sleptName) {
+		this.WitcheryRestitched$userName = sleptName;
 	}
 
 	// INJECTIONS
 
 	@Override
-	public void WitcheryRestitched$readNbt(NbtCompound nbt, CallbackInfo info) {
-		this.hasBeenUsed = nbt.getBoolean("witcheryrestitched:hasbeenused");
-		this.userUuid = nbt.getUuid("witcheryrestitched:useruuid");
-		this.userName = nbt.getString("witcheryrestitched:username");
+	protected void WitcheryRestitched$readCustomNbt(NbtCompound nbt, CallbackInfo info) {
+		this.WitcheryRestitched$hasBeenUsed = nbt.getBoolean("witcheryrestitched:hasbeenused");
+		this.WitcheryRestitched$userUuid = nbt.getUuid("witcheryrestitched:useruuid");
+		this.WitcheryRestitched$userName = nbt.getString("witcheryrestitched:username");
 	}
 
 	@Override
-	public void WitcheryRestitched$writeNbt(NbtCompound nbt, CallbackInfo info) {
-		nbt.putBoolean("witcheryrestitched:hasbeenused", this.hasBeenUsed);
-		nbt.putUuid("witcheryrestitched:useruuid", this.userUuid);
-		nbt.putString("witcheryrestitched:username", this.userName);
+	protected void WitcheryRestitched$writeCustomNbt(NbtCompound nbt, CallbackInfo info) {
+		nbt.putBoolean("witcheryrestitched:hasbeenused", this.WitcheryRestitched$hasBeenUsed);
+		nbt.putUuid("witcheryrestitched:useruuid", this.WitcheryRestitched$userUuid);
+		nbt.putString("witcheryrestitched:username", this.WitcheryRestitched$userName);
 	}
 
-	public NbtCompound WitcheryRestitched$createNbt() {
-		CallbackInfo info = new CallbackInfo("createNbt", false);
-		NbtCompound nbtCompound = new NbtCompound();
-		this.WitcheryRestitched$writeNbt(nbtCompound, info);
-		return nbtCompound;
-	}
-
-	public void WitcheryRestitched$toInitialChunkDataNbt(CallbackInfoReturnable<NbtCompound> cir) {
-		cir.setReturnValue(WitcheryRestitched$createNbt());
+	protected void WitcheryRestitched$toInitialChunkDataCustomNbt(CallbackInfoReturnable<NbtCompound> cir) {
+		this.WitcheryRestitched$writeCustomNbt(cir.getReturnValue(), null);
 	}
 }

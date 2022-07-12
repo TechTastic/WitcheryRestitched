@@ -12,15 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockEntity.class)
 public class BlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "readNbt")
-    protected void WitcheryRestitched$readNbt(NbtCompound nbt, CallbackInfo info) {}
+    protected void WitcheryRestitched$readCustomNbt(NbtCompound nbt, CallbackInfo info) {}
 
     @Inject(at = @At("HEAD"), method = "writeNbt")
-    protected void WitcheryRestitched$writeNbt(NbtCompound nbt, CallbackInfo info) {}
+    protected void WitcheryRestitched$writeCustomNbt(NbtCompound nbt, CallbackInfo info) {}
 
     @Inject(at = @At("RETURN"), method = "toInitialChunkDataNbt", cancellable = true)
-    protected void WitcheryRestitched$toInitialChunkDataNbt(CallbackInfoReturnable<NbtCompound> cir) {}
-
-    @Inject(at = @At("HEAD"), method = "createNbt")
-    protected void WitcheryRestitched$createNbt(CallbackInfoReturnable<NbtCompound> cir) {}
+    protected void WitcheryRestitched$toInitialChunkDataCustomNbt(CallbackInfoReturnable<NbtCompound> cir) {}
 
 }

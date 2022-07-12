@@ -13,12 +13,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.text.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
@@ -35,95 +33,96 @@ import java.util.List;
 import java.util.UUID;
 
 public class TaglockItem extends Item {
-    public TaglockItem(Settings settings) {
-        super(settings);
-    }
+	public TaglockItem(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        BlockEntity bed = context.getWorld().getBlockEntity(context.getBlockPos());
-        if (!bed.equals(null) && bed.getType().equals(BlockEntityType.BED) && true) {
-            ModdedBedBlockInterface Ibed = (ModdedBedBlockInterface) bed;
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		BlockEntity bed = context.getWorld().getBlockEntity(context.getBlockPos());
+		if (!bed.equals(null) && bed.getType().equals(BlockEntityType.BED) && true) {
+			ModdedBedBlockInterface Ibed = (ModdedBedBlockInterface) bed;
 
-            if (Ibed.wasUsed()) {
-                taglockEntity(Ibed.getUserUuid(), Ibed.getUserName(), context.getPlayer(), context.getStack());
-            }
+			if (Ibed.WitcheryRestitched$wasUsed()) {
+				taglockEntity(Ibed.WitcheryRestitched$getUserUuid(), Ibed.WitcheryRestitched$getUserName(), context.getPlayer(), context.getStack());
+			}
 
-            return ActionResult.PASS;
-        } else {
-            return super.useOnBlock(context);
-        }
-    }
+			return ActionResult.PASS;
+		} else {
+			return super.useOnBlock(context);
+		}
+	}
 
-    @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+	@Override
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+		if (user.getHeadYaw() < (entity.getBodyYaw() + 0.01) || user.getHeadYaw() > (entity.getBodyYaw() - 0.01)) {
+			Text name = entity.getDisplayName();
+			UUID uuid = entity.getUuid();
+			String displayName = name.getString();
 
-        Text name = Text.empty();
-        if (user.getHeadYaw() < (entity.getBodyYaw() + 0.01) || user.getHeadYaw() > (entity.getBodyYaw() - 0.01)) {
-            if (entity.isPlayer()) {
-                name = entity.getDisplayName();
-            } else {
-                name = entity.getDisplayName();
-            }
-            UUID uuid = entity.getUuid();
-            String displayName = name.getString();
-            taglockEntity(uuid, displayName, user, stack);
-        } else {
-            entity.sendMessage(Text.of("Someone is attempting to taglock you!!!"));
-            user.sendMessage(Text.of("You were noticed while trying to taglock them!!!"));
-        }
+			taglockEntity(uuid, displayName, user, stack);
+		} else {
+			entity.sendMessage(Text.of("Someone is attempting to taglock you!!!"));
+			user.sendMessage(Text.of("You were noticed while trying to taglock them!!!"));
+		}
 
-        return ActionResult.SUCCESS;
-    }
+		return ActionResult.SUCCESS;
+	}
 
-    @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (stack.hasNbt()) {
-            String target = stack.getNbt().getString("witcheryrestitched:targetName");
-            if (target == "") {
-                target = "None";
-            }
-            tooltip.add(Text.of(target).copy().formatted(Formatting.DARK_PURPLE));
-        }
-    }
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		if (stack.hasNbt()) {
+			String target = stack.getNbt().getString("witcheryrestitched:targetName");
+			if ("".equals(target)) {
+				target = "None";
+			}
+			tooltip.add(Text.of(target).copy().formatted(Formatting.DARK_PURPLE));
+		}
+	}
 
-    @Override
-    public void onCraft(ItemStack stack, World world, PlayerEntity player) {
-        if (!stack.hasNbt()) {
-            NbtCompound nbtData = new NbtCompound();
-            nbtData.putInt("witcheryresttiched:isfull", 0);
-            stack.setNbt(nbtData);
-        }
-    }
+	@Override
+	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
+		if (!stack.hasNbt()) {
+			NbtCompound nbtData = new NbtCompound();
+			nbtData.putInt("witcheryresttiched:isfull", 0);
+			stack.setNbt(nbtData);
+		}
+	}
 
-    @Override
-    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-        if (!stack.hasNbt()) {
-            NbtCompound nbtData = new NbtCompound();
-            nbtData.putInt("witcheryresttiched:isfull", 0);
-            stack.setNbt(nbtData);
-        }
-        return super.onClicked(stack, otherStack, slot, clickType, player, cursorStackReference);
-    }
+	@Override
+	public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
+		if (!stack.hasNbt()) {
+			NbtCompound nbtData = new NbtCompound();
+			nbtData.putInt("witcheryresttiched:isfull", 0);
+			stack.setNbt(nbtData);
+		}
+		return super.onClicked(stack, otherStack, slot, clickType, player, cursorStackReference);
+	}
 
-    @Override
-    public boolean onStackClicked(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player) {
-        if (!stack.hasNbt()) {
-            NbtCompound nbtData = new NbtCompound();
-            nbtData.putInt("witcheryresttiched:isfull", 0);
-            stack.setNbt(nbtData);
-        }
-        return super.onStackClicked(stack, slot, clickType, player);
-    }
+	@Override
+	public boolean onStackClicked(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player) {
+		if (!stack.hasNbt()) {
+			NbtCompound nbtData = new NbtCompound();
+			nbtData.putInt("witcheryresttiched:isfull", 0);
+			stack.setNbt(nbtData);
+		}
+		return super.onStackClicked(stack, slot, clickType, player);
+	}
 
-    private static void taglockEntity(UUID uuid, String displayName, PlayerEntity user, ItemStack stack) {
-        stack.decrement(1);
-        ItemStack taglock = new ItemStack(ModItems.TAGLOCK, 1);
-        NbtCompound nbtData = new NbtCompound();
-        nbtData.putString("witcheryrestitched:targetName", displayName);
-        nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
-        nbtData.putInt("witcheryresttiched:isfull", 1);
-        taglock.setNbt(nbtData);
-        user.giveItemStack(taglock);
-    }
+	private static void taglockEntity(UUID uuid, String displayName, PlayerEntity user, ItemStack stack) {
+		NbtCompound nbtData = new NbtCompound();
+		nbtData.putString("witcheryrestitched:targetName", displayName);
+		nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
+		nbtData.putInt("witcheryresttiched:isfull", 1);
+
+		if (stack.getCount() > 1) {
+			stack.decrement(1);
+			ItemStack taglock = new ItemStack(ModItems.TAGLOCK, 1);
+
+			taglock.setNbt(nbtData);
+			user.giveItemStack(taglock);
+		} else {
+			stack.setNbt(nbtData);
+		}
+	}
 }

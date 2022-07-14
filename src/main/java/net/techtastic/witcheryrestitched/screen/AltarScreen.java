@@ -21,7 +21,10 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
     @Override
     protected void init() {
         super.init();
+        backgroundWidth = 154;
+        backgroundHeight = 81;
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+        titleY = (height - backgroundHeight) / 2 - 10;
     }
 
     @Override
@@ -34,9 +37,16 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
 
         Text altarDisplay = Text.literal(0 + " / " + 0 + " (x" + 1 + ")");
-        int altarDisplayX = (backgroundWidth);
-        int altarDisplayY = (backgroundHeight / 2);
-        drawCenteredText(matrices, textRenderer, altarDisplay, x, y, 0);
+        int altarDisplayX = width / 2;
+        int altarDisplayY = height / 2;
+        drawCenteredText(matrices, textRenderer, altarDisplay, altarDisplayX, altarDisplayY, 0xFFFFFF);
+
+        //drawCenteredText(matrices, this.textRenderer, this.title, this.titleX, this.titleY, 0xFFFFFF);
+    }
+
+    @Override
+    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+        this.textRenderer.draw(matrices, this.title, (float)this.titleX, (float)this.titleY, 0xFFFFFF);
     }
 
     @Override

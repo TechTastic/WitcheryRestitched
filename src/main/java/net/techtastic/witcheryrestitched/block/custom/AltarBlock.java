@@ -94,10 +94,12 @@ public class AltarBlock extends BlockWithEntity implements BlockEntityProvider {
                     BlockPos master = altar.getMasterBlockPos();
                     onUse(world.getBlockState(master), world, master, player, hand, hit);
                 }
+
+                return ActionResult.SUCCESS;
             }
         }
 
-        return ActionResult.SUCCESS;
+        return ActionResult.FAIL;
     }
 
     @Nullable

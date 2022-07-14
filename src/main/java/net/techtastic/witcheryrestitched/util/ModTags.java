@@ -9,7 +9,9 @@ import net.techtastic.witcheryrestitched.WitcheryRestitched;
 
 public class ModTags {
     public static class Blocks {
-        public static final TagKey<Block> CAST_IRON_OVEN_INPUT = createTag("cast_iron_oven_input");
+        public static final TagKey<Block> MOD_LOGS = createTag("mod_logs");
+        public static final TagKey<Block> MOD_LEAVES = createTag("mod_leaves");
+        public static final TagKey<Block> NATURE_BLOCKS = createTag("nature_blocks");
 
         private static TagKey<Block> createTag(String name) {
             return  TagKey.of(Registry.BLOCK_KEY, new Identifier(WitcheryRestitched.MOD_ID, name));

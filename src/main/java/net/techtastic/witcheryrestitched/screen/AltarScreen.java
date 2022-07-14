@@ -21,36 +21,51 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
     @Override
     protected void init() {
         super.init();
-        backgroundWidth = 154;
-        backgroundHeight = 81;
-        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
-        titleY = (height - backgroundHeight) / 2 - 10;
+        this.backgroundWidth = 154;
+        this.backgroundHeight = 81;
+        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(title)) / 2;
+        this.titleY = this.backgroundHeight;
     }
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+        this.backgroundWidth = 154;
+        this.backgroundHeight = 81;
+        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(title)) / 2;
+        this.titleY = this.backgroundHeight;
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-        drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        int x = (this.width - this.backgroundWidth) / 2;
+        int y = (this.height - this.backgroundHeight) / 2;
+        drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
         Text altarDisplay = Text.literal(0 + " / " + 0 + " (x" + 1 + ")");
-        int altarDisplayX = width / 2;
-        int altarDisplayY = height / 2;
-        drawCenteredText(matrices, textRenderer, altarDisplay, altarDisplayX, altarDisplayY, 0xFFFFFF);
+        int altarDisplayX = this.width / 2;
+        int altarDisplayY = this.height / 2;
+        drawCenteredText(matrices, this.textRenderer, altarDisplay, altarDisplayX, altarDisplayY, 0xFFFFFF);
 
         //drawCenteredText(matrices, this.textRenderer, this.title, this.titleX, this.titleY, 0xFFFFFF);
     }
 
     @Override
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+        this.backgroundWidth = 154;
+        this.backgroundHeight = 81;
+        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(title)) / 2;
+        this.titleY = this.backgroundHeight;
+
         this.textRenderer.draw(matrices, this.title, (float)this.titleX, (float)this.titleY, 0xFFFFFF);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.backgroundWidth = 154;
+        this.backgroundHeight = 81;
+        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(title)) / 2;
+        this.titleY = this.backgroundHeight;
+
         renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);

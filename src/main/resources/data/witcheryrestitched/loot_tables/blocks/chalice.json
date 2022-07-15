@@ -24,9 +24,8 @@
                 }
               ],
               "name": "witcheryrestitched:chalice",
-              "set_nbt": {
-                "witcheryrestitched:soup": 1
-              }
+              "function": "minecraft:set_nbt",
+              "tag": "{\"witcheryrestitched:soup\":1}"
             },
             {
               "type": "minecraft:item",
@@ -40,9 +39,8 @@
                 }
               ],
               "name": "witcheryrestitched:chalice",
-              "set_nbt": {
-                "witcheryrestitched:soup": 0
-              }
+              "function": "minecraft:set_nbt",
+              "tag": "{\"witcheryrestitched:soup\":0}"
             },
             {
               "type": "minecraft:item",

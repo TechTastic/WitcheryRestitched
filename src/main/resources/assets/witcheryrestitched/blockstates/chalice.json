@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "soup=false": { "model": "witcheryrestitched:block/chalice_empty" },
+    "soup=true": { "model": "witcheryrestitched:block/chalice_filled" }
+  }
+}
+

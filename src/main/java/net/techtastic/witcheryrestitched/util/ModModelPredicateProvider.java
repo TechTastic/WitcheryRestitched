@@ -18,6 +18,13 @@ public class ModModelPredicateProvider {
                 });
     }
 
+    private static void registerChalice(Item chalice) {
+        FabricModelPredicateProviderRegistry.register(chalice, new Identifier("soup"),
+                (stack, world, entity, seed) -> {
+                    return stack.getOrCreateNbt().getInt("witcheryresttiched:soup");
+                });
+    }
+
     private static void registerToeOfFrog(Item toe) {
         FabricModelPredicateProviderRegistry.register(toe, new Identifier("fv"),
                 (stack, world, entity, seed) -> {

@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "witcheryrestitched:item/chalice_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:soup": 0
+      },
+      "model": "witcheryrestitched:item/chalice_empty"
+    },
+    {
+      "predicate": {
+        "minecraft:soup": 1
+      },
+      "model": "witcheryrestitched:item/chalice_filled"
+    }
+  ]
+}

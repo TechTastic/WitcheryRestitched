@@ -11,15 +11,17 @@ import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.*;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
+import net.techtastic.witcheryrestitched.item.custom.ChaliceBlockItem;
 import net.techtastic.witcheryrestitched.world.feature.tree.AlderSaplingGenerator;
 import net.techtastic.witcheryrestitched.world.feature.tree.RowanSaplingGenerator;
 
 public class ModBlocks {
 
-    public static final Block EMPTY_CHALICE = registerBlock("empty_chalice",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque().dynamicBounds()), ModItemGroup.WITCHERYRESTITCHED);
+    public static final Block CHALICE = registerBlockWithoutBlockItem("chalice",
+            new ChaliceBlock(FabricBlockSettings.of(Material.METAL).strength(4f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
     public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
-            new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+            new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(4f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     // CROPS
 
@@ -31,7 +33,7 @@ public class ModBlocks {
 
     // ALTAR BLOCKS
     public static final Block ALTAR = registerBlock("altar_block",
-            new AltarBlock(FabricBlockSettings.of(Material.STONE).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+            new AltarBlock(FabricBlockSettings.of(Material.STONE).strength(3f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     // TREES
 

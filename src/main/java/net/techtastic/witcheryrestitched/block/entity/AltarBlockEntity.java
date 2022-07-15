@@ -13,6 +13,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.text.Text;
@@ -54,8 +55,48 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     private int ticks = 1;
 
+    // GUI PROPERTYDELEGATE
+
+    protected final PropertyDelegate propertyDelegate;
+
     public AltarBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ALTAR, pos, state);
+
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                switch (index) {
+                    case 0:
+                        return AltarBlockEntity.this.maxAltarPower;
+                    case 1:
+                        return AltarBlockEntity.this.currentAltarPower;
+                    case 2:
+                        return AltarBlockEntity.this.rate;
+                    default:
+                        return 0;
+                }
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0:
+                        AltarBlockEntity.this.maxAltarPower = value;
+                        break;
+                    case 1:
+                        AltarBlockEntity.this.currentAltarPower = value;
+                        break;
+                    case 2:
+                        AltarBlockEntity.this.rate = value;
+                        break;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 3;
+            }
+        };
     }
 
     // ALTAR POWER GETTERS AND SETTERS
@@ -138,7 +179,7 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
         //We provide *this* to the screenHandler as our class Implements Inventory
         //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return new AltarScreenHandler(syncId, inv, this);
+        return new AltarScreenHandler(syncId, inv, this, this.propertyDelegate);
     }
 
     @Override
@@ -330,14 +371,12 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
         int basePowerIncrement = this.getBasePowerIncrement();
         int altarRate = this.getAltarRate();
 
-        if (currentAltarPower != maxAltarPower) {
-            if (currentAltarPower >= maxAltarPower - currentAltarPower) {
-                //WitcheryRestitched.LOGGER.info(maxAltarPower + ": New Current Altar Power");
-                this.setCurrentAltarPower(maxAltarPower);
-            } else {
-                //WitcheryRestitched.LOGGER.info(String.valueOf(currentAltarPower + basePowerIncrement * altarRate) + ": New Current Altar Power");
-                this.setCurrentAltarPower(currentAltarPower + (basePowerIncrement * altarRate));
-            }
+        int newCurrentPower = currentAltarPower + basePowerIncrement * altarRate;
+
+        if (newCurrentPower >= maxAltarPower) {
+            this.setCurrentAltarPower(maxAltarPower);
+        } else {
+            this.setCurrentAltarPower(newCurrentPower);
         }
     }
 
@@ -368,8 +407,6 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
         } else if (state.isIn(BlockTags.CROPS)) {
             if (state.getBlock() == Blocks.PUMPKIN_STEM || state.getBlock() == Blocks.MELON_STEM) {
                 return "stem_crops";
-            } else {
-                return "crops";
             }
         } else if (state.isIn(BlockTags.SAPLINGS)) {
             return "saplings";
@@ -469,10 +506,13 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
             blockPowers.put(three[i], 3);
         }
 
-        String[] four = new String[3];
+        String[] four = new String[6];
         four[0] = "saplings";
-        four[1] = "crops";
-        four[2] = "mod_leaves";
+        four[1] = "mod_leaves";
+        four[2] = "wheat";
+        four[3] = "carrots";
+        four[4] = "potatoes";
+        four[5] = "beetroots";
 
         for (int i = 0; i < four.length; i++) {
             blockPowers.put(four[i], 4);
@@ -498,25 +538,20 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 for (int z = onTop.getMinZ(); z < altar.getMaxZ() + 1; z++) {
                     BlockState testBlock = world.getBlockState(new BlockPos.Mutable(x, pos.getY() + 1, z));
 
-                    WitcheryRestitched.LOGGER.info("THIS IS A FOR LOOP!");
-
                     if (!alreadySkull) {
                         if (testBlock.getBlock() == Blocks.PLAYER_HEAD) {
-                            WitcheryRestitched.LOGGER.info("THERES A PLAYER HEAD!");
                             powerMultiplier += 2.5;
                             rate += 3;
                         } else if (testBlock.getBlock() == Blocks.WITHER_SKELETON_SKULL) {
-                            WitcheryRestitched.LOGGER.info("THERES A WITHER SKELETON SKULL!");
                             powerMultiplier += 2;
                             rate += 2;
                         } else if (testBlock.getBlock() == Blocks.SKELETON_SKULL) {
-                            WitcheryRestitched.LOGGER.info("THERES A SKELETON SKULL!");
                             powerMultiplier += 1;
                             rate += 1;
                         }
                     }
 
-                    /*if (!alreadyChalice) {
+                    if (!alreadyChalice) {
                         if (testBlock.getBlock() == ModBlocks.CHALICE) {
                             if (testBlock != testBlock.getBlock().getDefaultState()) {
                                 powerMultiplier += 2;
@@ -524,13 +559,12 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
                                 powerMultiplier += 1;
                             }
                         }
-                    }*/
+                    }
 
                     if (!alreadyLight) {
                         /*if (testBlock.getBlock() == ModBlocks.CANDELABRA) {
                             rate += 2;
                         } else */if (testBlock.getBlock() == Blocks.TORCH) {
-                            WitcheryRestitched.LOGGER.info("THERES A TORCH!");
                             rate += 1;
                         }
                     }
@@ -573,7 +607,6 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
                             if (blockCounts.containsKey(key)) {
                                 value = blockCounts.get(key) + 1;
                             }
-                            WitcheryRestitched.LOGGER.info(key);
                             blockCounts.put(key, value);
                         }
                     }
@@ -582,8 +615,10 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
             // And when you determine the 'max power' of your block entity, iterate though each entry of all maps (they should use the same keys)
             for (String key : blockCounts.keySet()) {
-                WitcheryRestitched.LOGGER.info(key);
                 int count = blockCounts.get(key);
+                if (!blockCounts.containsKey(key) || !blockPowers.containsKey(key) || !blockCountLimits.containsKey(key)) {
+                    WitcheryRestitched.LOGGER.info(key);
+                }
                 if (count > blockCountLimits.get(key)) count = blockCountLimits.get(key); // Handle case if the count is bigger than maximum
                 maxAltarPower += count * blockPowers.get(key);
             }
@@ -623,19 +658,16 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
             }
 
             //GET ORIENTATION AND CHECK FOR NATURE EVERY 100 TICKS
-            if (be.getTicks() % 50 == 0) {
+            if (be.getTicks() % 40 == 0) {
 
                 // SET MAX ALTAR POWER BASED ON NATURE
                 be.updateMaxAltarPower(world1, pos, potentialMultiblock);
-                be.markDirty();
-
-                //CHANGE CURRENT POWER IF OVER NEW MAX
-                be.updateCurrentAltarPower();
 
                 be.resetTicks();
             }
         }
         be.incrementTicks();
+        be.markDirty();
     }
 
     // NBT DATA

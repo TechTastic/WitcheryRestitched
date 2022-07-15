@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "block": "witcheryrestitched:chalice",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "soup": true
+                  }
+                }
+              ],
+              "name": "witcheryrestitched:chalice"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "witcheryrestitched:chalice",
+              "set_nbt": {
+                "witcheryrestitched:soup": 1
+              }
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "block": "witcheryrestitched:chalice",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "soup": false
+                  }
+                }
+              ],
+              "name": "witcheryrestitched:chalice"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "witcheryrestitched:chalice",
+              "set_nbt": {
+                "witcheryrestitched:soup": 0
+              }
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

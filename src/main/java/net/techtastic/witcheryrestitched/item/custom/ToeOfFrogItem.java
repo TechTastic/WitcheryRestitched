@@ -9,7 +9,9 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 import net.minecraft.world.World;
 
-public class ToeOfFrogItem extends Item {
+public class
+
+ToeOfFrogItem extends Item {
     public ToeOfFrogItem(Settings settings) {
         super(settings);
     }

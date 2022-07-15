@@ -70,8 +70,10 @@
   "item.witcheryrestitched.infernal_animus": "Infernal Animus",
   "item.witcheryrestitched.spirit_of_otherwhere": "Spirit of Otherwhere",
 
-  "block.witcheryrestitched.empty_chalice": "Empty Chalice",
+  "block.witcheryrestitched.chalice": "Chalice",
+  "item.witcheryrestitched.chalice": "Chalice",
   "block.witcheryrestitched.cast_iron_oven": "Cast Iron Oven",
+  "block.witcheryrestitched.altar": "Altar Block",
 
   "block.witcheryrestitched.crop_garlic": "Garlic Crop",
   "block.witcheryrestitched.crop_mandrake_root": "Mandrake Root Crop",

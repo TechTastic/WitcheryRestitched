@@ -53,28 +53,6 @@ public class AltarBlock extends BlockWithEntity implements BlockEntityProvider {
     }
 
     @Override
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        if (world.getBlockEntity(pos) instanceof AltarBlockEntity) {
-            AltarBlockEntity altar = (AltarBlockEntity) world.getBlockEntity(pos);
-            if (altar.isMultiblock()) {
-                if (altar.isMasterBlock()) {
-                    if (world.isClient()) {
-                        entity.sendMessage(Text.of("Max altar power is at " + altar.getMaxAltarPower()));
-                        entity.sendMessage(Text.of("Current altar power is at " + altar.getCurrentAltarPower()));
-                        entity.sendMessage(Text.of("Altar rate is at " + altar.getAltarRate()));
-                        entity.sendMessage(Text.of("Altar range is at " + altar.getAltarRange()));
-                    }
-                } else {
-                    BlockPos master = altar.getMasterBlockPos();
-                    onLandedUpon(world, state, master, entity, fallDistance);
-                }
-            }
-        }
-
-        super.onLandedUpon(world, state, pos, entity, fallDistance);
-    }
-
-    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.getBlockEntity(pos) instanceof AltarBlockEntity) {
             AltarBlockEntity altar = (AltarBlockEntity) world.getBlockEntity(pos);

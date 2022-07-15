@@ -2,13 +2,16 @@ package net.techtastic.witcheryrestitched.util;
 
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.techtastic.witcheryrestitched.block.ModBlocks;
 import net.techtastic.witcheryrestitched.item.ModItems;
 
 public class ModModelPredicateProvider {
     public static void registerModModels() {
         registerTaglock(ModItems.TAGLOCK);
         registerToeOfFrog(ModItems.TOE_OF_FROG);
+        registerChalice(ModBlocks.CHALICE.asItem());
     }
 
     private static void registerTaglock(Item taglock) {

@@ -7,49 +7,41 @@
   ],
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "name": "witcheryrestitched:chalice",
+          "functions": [
             {
-              "type": "minecraft:item",
+              "function": "minecraft:set_nbt",
+              "tag": "{\"witcheryrestitched:soup\":1}",
               "conditions": [
                 {
-                  "block": "witcheryrestitched:chalice",
                   "condition": "minecraft:block_state_property",
+                  "block": "witcheryrestitched:chalice",
                   "properties": {
-                    "soup": true
+                    "soup": "true"
                   }
                 }
-              ],
-              "name": "witcheryrestitched:chalice",
-              "function": "minecraft:set_nbt",
-              "tag": "{\"witcheryrestitched:soup\":1}"
+              ]
             },
             {
-              "type": "minecraft:item",
+              "function": "minecraft:set_nbt",
+              "tag": "{\"witcheryrestitched:soup\":0}",
               "conditions": [
                 {
-                  "block": "witcheryrestitched:chalice",
                   "condition": "minecraft:block_state_property",
+                  "block": "witcheryrestitched:chalice",
                   "properties": {
-                    "soup": false
+                    "soup": "false"
                   }
                 }
-              ],
-              "name": "witcheryrestitched:chalice",
-              "function": "minecraft:set_nbt",
-              "tag": "{\"witcheryrestitched:soup\":0}"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "witcheryrestitched:chalice"
+              ]
             }
           ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ]
 }

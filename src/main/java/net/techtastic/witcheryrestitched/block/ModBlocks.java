@@ -19,6 +19,9 @@ public class ModBlocks {
     public static final Block CHALICE = registerBlock("chalice",
             new ChaliceBlock(FabricBlockSettings.of(Material.METAL).strength(4f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
+    public static final Block ARTHANA = registerBlockWithoutBlockItem("arthana",
+            new ArthanaBlock(FabricBlockSettings.of(Material.METAL).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
     public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
             new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 

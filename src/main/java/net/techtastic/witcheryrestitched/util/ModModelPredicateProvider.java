@@ -17,21 +17,21 @@ public class ModModelPredicateProvider {
     private static void registerTaglock(Item taglock) {
         FabricModelPredicateProviderRegistry.register(taglock, new Identifier("isfull"),
                 (stack, world, entity, seed) -> {
-                    return stack.getOrCreateNbt().getInt("witcheryresttiched:isfull");
+                    return stack.getOrCreateNbt().getInt("witcheryrestitched:isfull");
                 });
     }
 
     private static void registerChalice(Item chalice) {
         FabricModelPredicateProviderRegistry.register(chalice, new Identifier("soup"),
                 (stack, world, entity, seed) -> {
-                    return stack.getOrCreateNbt().getInt("witcheryresttiched:soup");
+                    return stack.getOrCreateNbt().getInt("witcheryrestitched:soup");
                 });
     }
 
     private static void registerToeOfFrog(Item toe) {
         FabricModelPredicateProviderRegistry.register(toe, new Identifier("fv"),
                 (stack, world, entity, seed) -> {
-                    return stack.getOrCreateNbt().getInt("witcheryresttiched:frogvariant");
+                    return stack.getOrCreateNbt().getInt("witcheryrestitched:frogvariant");
                 });
     }
 

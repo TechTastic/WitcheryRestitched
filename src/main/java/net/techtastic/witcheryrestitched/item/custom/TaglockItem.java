@@ -3,6 +3,7 @@ package net.techtastic.witcheryrestitched.item.custom;
 import com.eliotlash.mclib.math.functions.classic.Mod;
 import net.fabricmc.fabric.impl.registry.sync.trackers.vanilla.BlockItemTracker;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BedBlockEntity;
@@ -71,58 +72,62 @@ public class TaglockItem extends Item {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if (stack.hasNbt()) {
-			String target = stack.getNbt().getString("witcheryrestitched:targetName");
-			if ("".equals(target)) {
-				target = "None";
-			}
-			tooltip.add(Text.of(target).copy().formatted(Formatting.DARK_PURPLE));
+		String target = "";
+		NbtCompound nbt = stack.getOrCreateNbt();
+		
+		if (nbt.contains("witcheryrestitched:targetName")) {
+			target = nbt.getString("witcheryrestitched:targetName");
 		}
+		if ("".equals(target)) {
+			target = "None";
+		}
+		tooltip.add(Text.of(target).copy().formatted(Formatting.DARK_PURPLE));
 	}
 
 	@Override
 	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
-		if (!stack.hasNbt()) {
-			NbtCompound nbtData = new NbtCompound();
-			nbtData.putInt("witcheryresttiched:isfull", 0);
-			stack.setNbt(nbtData);
+		NbtCompound nbt = stack.getOrCreateNbt();
+		if (!nbt.contains("witcheryrestitched:isfull")) {
+			nbt.putInt("witcheryrestitched:isfull", 0);
 		}
 	}
 
 	@Override
 	public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-		if (!stack.hasNbt()) {
-			NbtCompound nbtData = new NbtCompound();
-			nbtData.putInt("witcheryresttiched:isfull", 0);
-			stack.setNbt(nbtData);
+		NbtCompound nbt = stack.getOrCreateNbt();
+		if (!nbt.contains("witcheryrestitched:isfull")) {
+			nbt.putInt("witcheryrestitched:isfull", 0);
 		}
+		
 		return super.onClicked(stack, otherStack, slot, clickType, player, cursorStackReference);
 	}
 
 	@Override
 	public boolean onStackClicked(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player) {
-		if (!stack.hasNbt()) {
-			NbtCompound nbtData = new NbtCompound();
-			nbtData.putInt("witcheryresttiched:isfull", 0);
-			stack.setNbt(nbtData);
+		NbtCompound nbt = stack.getOrCreateNbt();
+		if (!nbt.contains("witcheryrestitched:isfull")) {
+			nbt.putInt("witcheryrestitched:isfull", 0);
 		}
+		
 		return super.onStackClicked(stack, slot, clickType, player);
 	}
 
 	private static void taglockEntity(UUID uuid, String displayName, PlayerEntity user, ItemStack stack) {
-		NbtCompound nbtData = new NbtCompound();
-		nbtData.putString("witcheryrestitched:targetName", displayName);
-		nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
-		nbtData.putInt("witcheryresttiched:isfull", 1);
-
 		if (stack.getCount() > 1) {
 			stack.decrement(1);
 			ItemStack taglock = new ItemStack(ModItems.TAGLOCK, 1);
 
-			taglock.setNbt(nbtData);
+			NbtCompound nbtData = stack.getOrCreateNbt();
+			nbtData.putString("witcheryrestitched:targetName", displayName);
+			nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
+			nbtData.putInt("witcheryrestitched:isfull", 1);
+			
 			user.giveItemStack(taglock);
 		} else {
-			stack.setNbt(nbtData);
+			NbtCompound nbtData = stack.getOrCreateNbt();
+			nbtData.putString("witcheryrestitched:targetName", displayName);
+			nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
+			nbtData.putInt("witcheryrestitched:isfull", 1);
 		}
 	}
 }

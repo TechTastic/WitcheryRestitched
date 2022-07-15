@@ -7,10 +7,17 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
+import net.techtastic.witcheryrestitched.item.custom.ArthanaSwordItem;
 import net.techtastic.witcheryrestitched.item.custom.TaglockItem;
 import net.techtastic.witcheryrestitched.item.custom.ToeOfFrogItem;
 
 public class ModItems {
+
+    /* ARTHANA */
+
+    public static final Item ARTHANA = registerItem("arthana",
+            new ArthanaSwordItem(ToolMaterials.GOLD, 4, 4.0f,
+                    new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED).maxDamage(251)));
 
     /* BOOKS */
 

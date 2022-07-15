@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static net.techtastic.witcheryrestitched.block.custom.AltarBlock.MULTIBLOCK;
+import static net.techtastic.witcheryrestitched.block.custom.ChaliceBlock.SOUP;
 
 public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
@@ -553,10 +554,12 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
                     if (!alreadyChalice) {
                         if (testBlock.getBlock() == ModBlocks.CHALICE) {
-                            if (testBlock != testBlock.getBlock().getDefaultState()) {
+                            if (testBlock.get(SOUP)) {
                                 powerMultiplier += 2;
+                                alreadyChalice = true;
                             } else {
                                 powerMultiplier += 1;
+                                alreadyChalice = true;
                             }
                         }
                     }

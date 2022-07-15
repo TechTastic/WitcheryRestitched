@@ -10,15 +10,21 @@ import net.techtastic.witcheryrestitched.block.ModBlocks;
 public class ModBlockEntities {
     public static BlockEntityType<CastIronOvenBlockEntity> CAST_IRON_OVEN;
     public static BlockEntityType<AltarBlockEntity> ALTAR;
-
+    public static BlockEntityType<ArthanaBlockEntity> ARTHANA;
         public static void registerAllBlockEntities() {
             CAST_IRON_OVEN = Registry.register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(WitcheryRestitched.MOD_ID, "cast_iron_oven"),
                     FabricBlockEntityTypeBuilder.create(CastIronOvenBlockEntity::new,
                             ModBlocks.CAST_IRON_OVEN).build(null));
+
             ALTAR = Registry.register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(WitcheryRestitched.MOD_ID, "altar"),
                     FabricBlockEntityTypeBuilder.create(AltarBlockEntity::new,
                             ModBlocks.ALTAR).build(null));
+
+            ARTHANA = Registry.register(Registry.BLOCK_ENTITY_TYPE,
+                    new Identifier(WitcheryRestitched.MOD_ID, "arthana"),
+                    FabricBlockEntityTypeBuilder.create(ArthanaBlockEntity::new,
+                            ModBlocks.ARTHANA).build(null));
         }
 }

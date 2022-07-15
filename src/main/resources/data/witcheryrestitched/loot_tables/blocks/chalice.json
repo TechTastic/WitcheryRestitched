@@ -23,26 +23,11 @@
                   }
                 }
               ],
-              "name": "witcheryrestitched:chalice"
-            },
-            {
-              "type": "minecraft:item",
               "name": "witcheryrestitched:chalice",
               "set_nbt": {
                 "witcheryrestitched:soup": 1
               }
-            }
-          ]
-        }
-      ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
+            },
             {
               "type": "minecraft:item",
               "conditions": [
@@ -54,14 +39,14 @@
                   }
                 }
               ],
-              "name": "witcheryrestitched:chalice"
-            },
-            {
-              "type": "minecraft:item",
               "name": "witcheryrestitched:chalice",
               "set_nbt": {
                 "witcheryrestitched:soup": 0
               }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "witcheryrestitched:chalice"
             }
           ]
         }

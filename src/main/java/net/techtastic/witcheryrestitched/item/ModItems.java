@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
-import net.techtastic.witcheryrestitched.item.custom.ChaliceBlockItem;
 import net.techtastic.witcheryrestitched.item.custom.TaglockItem;
 import net.techtastic.witcheryrestitched.item.custom.ToeOfFrogItem;
 
@@ -212,11 +211,6 @@ public class ModItems {
 
     public static final Item HEART_OF_GOLD = registerItem("heart_of_gold",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
-
-    // CHALICE
-
-    public static final Item CHALICE = registerItem("chalice",
-            new ChaliceBlockItem(ModBlocks.CHALICE, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(WitcheryRestitched.MOD_ID, name), item);

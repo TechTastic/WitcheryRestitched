@@ -574,13 +574,13 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
                     /*if (testBlock.getBlock() == ModBlocks.PENTACLE) {
                         rate = rate * 2;
-                    }
+                    }*/
 
                     if (testBlock.getBlock() == ModBlocks.ARTHANA) {
                         range = 32;
                     }
 
-                    if (testBlock.getBlock() == ModBlocks.INFINITY_EGG) {
+                    /*if (testBlock.getBlock() == ModBlocks.INFINITY_EGG) {
                         maxAltarPower = 1000;
                         powerMultiplier += 10;
                         rate = rate * 10;

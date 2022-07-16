@@ -3,6 +3,7 @@ package net.techtastic.witcheryrestitched.block.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -14,12 +15,17 @@ import net.minecraft.util.math.BlockPos;
 import net.techtastic.witcheryrestitched.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Objects;
+
 public class ArthanaBlockEntity extends BlockEntity {
 
     private NbtList enchantments = new NbtList();
     private int damage = 251;
     private String name = "";
-    private NbtCompound itemNbt = new NbtCompound();
+    private NbtCompound itemNbt = null;
+
+    private List<Text> tooltip;
 
     public ArthanaBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ARTHANA, pos, state);
@@ -28,46 +34,38 @@ public class ArthanaBlockEntity extends BlockEntity {
     //SETTERS AND GETTERS
 
     public ItemStack getItemStack() {
-        ItemStack stack = new ItemStack(ModItems.ARTHANA);
+        ItemStack stack = new ItemStack(ModItems.ARTHANA, 1);
+        if (this.itemNbt != null) {
+            stack.setNbt(this.itemNbt);
+        }
+        ItemStack.appendEnchantments(this.tooltip, this.enchantments);
 
-        stack.setCount(1);
-        stack.setNbt(this.itemNbt);
-        stack.setCustomName(Text.of(this.name));
+        if (!this.name.equals(ModItems.ARTHANA.getName().getString())) {
+            stack.setCustomName(Text.of(this.name));
+        }
         stack.setDamage(this.damage);
 
         return stack;
-    }
-
-    public NbtList getEnchantments() {
-        return this.enchantments;
     }
 
     public void setEnchantments(NbtList enchantments) {
         this.enchantments = enchantments;
     }
 
-    public int getDamage() {
-        return this.damage;
-    }
-
     public void setDamage(int damage) {
         this.damage = damage;
-    }
-
-    public String getItemName() {
-        return this.name;
     }
 
     public void setItemName(String name) {
         this.name = name;
     }
 
-    public NbtCompound getItemNbt() {
-        return this.itemNbt;
-    }
-
     public void setItemNbt(NbtCompound nbt) {
         this.itemNbt = nbt;
+    }
+
+    public void setTooltip(List<Text> tooltip) {
+        this.tooltip = tooltip;
     }
 
     //NETWORKING NBT

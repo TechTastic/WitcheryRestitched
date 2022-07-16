@@ -106,7 +106,7 @@ public class ArthanaBlock extends BlockWithEntity implements BlockEntityProvider
 
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        this.interactingPlayer.giveItemStack(this.arthana.getItemStack());
+        dropStack((World) world, pos, this.arthana.getItemStack());
 
         super.onBroken(world, pos, state);
     }
@@ -116,16 +116,9 @@ public class ArthanaBlock extends BlockWithEntity implements BlockEntityProvider
         if (player.isSneaking()) {
             ArthanaBlockEntity arthana = (ArthanaBlockEntity) world.getBlockEntity(pos);
 
-            NbtCompound nbt = new NbtCompound();
-            arthana.readNbt(nbt);
-
-            ItemStack newArthana = new ItemStack(ModItems.ARTHANA);
-            newArthana.setNbt(nbt);
-            newArthana.setCount(1);
-
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
-            player.giveItemStack(newArthana);
+            player.giveItemStack(arthana.getItemStack());
 
             return ActionResult.SUCCESS;
         }

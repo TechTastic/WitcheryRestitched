@@ -33,6 +33,13 @@ public class ModRegistries {
         registry.add(ModBlocks.STRIPPED_ALDER_WOOD,15);
         registry.add(ModBlocks.ALDER_PLANKS,15);
         registry.add(ModBlocks.ALDER_SAPLING,5);
+
+        registry.add(ModBlocks.HAWTHORN_LOG,15);
+        registry.add(ModBlocks.STRIPPED_HAWTHORN_LOG,15);
+        registry.add(ModBlocks.HAWTHORN_WOOD,15);
+        registry.add(ModBlocks.STRIPPED_HAWTHORN_WOOD,15);
+        registry.add(ModBlocks.HAWTHORN_PLANKS,15);
+        registry.add(ModBlocks.HAWTHORN_SAPLING,5);
     }
 
     private static void registerCommands() {
@@ -45,6 +52,9 @@ public class ModRegistries {
 
         StrippableBlockRegistry.register(ModBlocks.ALDER_LOG, ModBlocks.STRIPPED_ALDER_LOG);
         StrippableBlockRegistry.register(ModBlocks.ALDER_WOOD, ModBlocks.STRIPPED_ALDER_WOOD);
+
+        StrippableBlockRegistry.register(ModBlocks.HAWTHORN_LOG, ModBlocks.STRIPPED_HAWTHORN_LOG);
+        StrippableBlockRegistry.register(ModBlocks.HAWTHORN_WOOD, ModBlocks.STRIPPED_HAWTHORN_WOOD);
     }
 
     private static void registerFlammableBlock() {
@@ -63,6 +73,13 @@ public class ModRegistries {
         instance.add(ModBlocks.STRIPPED_ALDER_WOOD, 5, 5);
         instance.add(ModBlocks.ALDER_PLANKS, 5, 20);
         instance.add(ModBlocks.ALDER_LEAVES, 30, 60);
+
+        instance.add(ModBlocks.HAWTHORN_LOG, 5, 5);
+        instance.add(ModBlocks.HAWTHORN_WOOD, 5, 5);
+        instance.add(ModBlocks.STRIPPED_HAWTHORN_LOG, 5, 5);
+        instance.add(ModBlocks.STRIPPED_HAWTHORN_WOOD, 5, 5);
+        instance.add(ModBlocks.HAWTHORN_PLANKS, 5, 20);
+        instance.add(ModBlocks.HAWTHORN_LEAVES, 30, 60);
     }
 
     private static void registerEvents() {

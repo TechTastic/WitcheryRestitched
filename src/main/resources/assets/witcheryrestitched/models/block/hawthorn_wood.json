@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "witcheryrestitched:block/hawthorn_log",
+    "side": "witcheryrestitched:block/hawthorn_log"
+  }
+}

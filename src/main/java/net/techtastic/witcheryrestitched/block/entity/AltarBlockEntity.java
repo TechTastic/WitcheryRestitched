@@ -565,26 +565,30 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     }
 
                     if (!alreadyLight) {
-                        /*if (testBlock.getBlock() == ModBlocks.CANDELABRA) {
+                        if (testBlock.getBlock() == ModBlocks.CANDELABRA && !testBlock.equals(testBlock.getBlock().getDefaultState())) {
                             rate += 2;
-                        } else */if (testBlock.getBlock() == Blocks.TORCH) {
+                        } else if (testBlock.getBlock() == Blocks.TORCH) {
                             rate += 1;
                         }
                     }
 
-                    /*if (testBlock.getBlock() == ModBlocks.PENTACLE) {
+                    if (testBlock.getBlock() == ModBlocks.PENTACLE) {
                         rate = rate * 2;
-                    }*/
+                    }
 
                     if (testBlock.getBlock() == ModBlocks.ARTHANA) {
                         range = 32;
                     }
 
-                    /*if (testBlock.getBlock() == ModBlocks.INFINITY_EGG) {
+                    if (testBlock.getBlock() == ModBlocks.INFINITY_EGG) {
                         maxAltarPower = 1000;
-                        powerMultiplier += 10;
+                        if (powerMultiplier == 1) {
+                            powerMultiplier = 10;
+                        } else {
+                            powerMultiplier += 10;
+                        }
                         rate = rate * 10;
-                    }*/
+                    }
                 }
             }
 
@@ -627,12 +631,12 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
             }
 
             //REAPPLY VARIABLES
-            this.setMaxAltarPower( (int) Math.ceil(maxAltarPower * powerMultiplier));
-            if (this.getMaxAltarPower() < this.getCurrentAltarPower()) {
-                this.setCurrentAltarPower(this.getMaxAltarPower());
+            this.maxAltarPower = (int) Math.ceil(maxAltarPower * powerMultiplier);
+            if (this.maxAltarPower < this.currentAltarPower) {
+                this.currentAltarPower = this.getMaxAltarPower();
             }
-            this.setAltarRate(rate);
-            this.setAltarRange(range);
+            this.rate = rate;
+            this.range = range;
             this.markDirty();
         }
     }

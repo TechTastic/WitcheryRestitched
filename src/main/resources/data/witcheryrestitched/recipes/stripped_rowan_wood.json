@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LL ",
+    "LL ",
+    "   "
+  ],
+  "key": {
+    "L": {
+      "item": "witcheryrestitched:stripped_rowan_log"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:stripped_rowan_wood",
+    "count": 3
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model": "witcheryrestitched:block/candelabra_unlit" },
+    "lit=true": { "model": "witcheryrestitched:block/candelabra_lit" }
+  }
+}

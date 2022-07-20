@@ -1,8 +1,11 @@
 package net.techtastic.witcheryrestitched.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BedBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
 import net.techtastic.witcheryrestitched.util.ModdedBedBlockInterface;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,13 +16,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.UUID;
 
 @Mixin(BedBlockEntity.class)
-public class BedBlockEntityMixin extends BlockEntityMixin implements ModdedBedBlockInterface {
+public class BedBlockEntityMixin extends BlockEntity implements ModdedBedBlockInterface {
 
 	// VARIABLES
 
 	private boolean WitcheryRestitched$hasBeenUsed = false;
 	private UUID WitcheryRestitched$userUuid = UUID.randomUUID();
 	private String WitcheryRestitched$userName = "";
+
+	public BedBlockEntityMixin(BlockPos pos, BlockState state) {
+		super(BlockEntityType.BED, pos, state);
+	}
 
 	// FROM INTERFACE
 	@Override
@@ -55,20 +62,27 @@ public class BedBlockEntityMixin extends BlockEntityMixin implements ModdedBedBl
 	// INJECTIONS
 
 	@Override
-	protected void WitcheryRestitched$readCustomNbt(NbtCompound nbt, CallbackInfo info) {
-		this.WitcheryRestitched$hasBeenUsed = nbt.getBoolean("witcheryrestitched:hasbeenused");
-		this.WitcheryRestitched$userUuid = nbt.getUuid("witcheryrestitched:useruuid");
-		this.WitcheryRestitched$userName = nbt.getString("witcheryrestitched:username");
+	public void readNbt(NbtCompound nbt) {
+		if (nbt.contains("witcheryrestitched:hasbeenused")) {
+			this.WitcheryRestitched$hasBeenUsed = nbt.getBoolean("witcheryrestitched:hasbeenused");
+		}
+		if (nbt.contains("witcheryrestitched:useruuid")) {
+			this.WitcheryRestitched$userUuid = nbt.getUuid("witcheryrestitched:useruuid");
+		}
+		if (nbt.contains("witcheryrestitched:username")) {
+			this.WitcheryRestitched$userName = nbt.getString("witcheryrestitched:username");
+		}
 	}
 
 	@Override
-	protected void WitcheryRestitched$writeCustomNbt(NbtCompound nbt, CallbackInfo info) {
+	public void writeNbt(NbtCompound nbt) {
 		nbt.putBoolean("witcheryrestitched:hasbeenused", this.WitcheryRestitched$hasBeenUsed);
 		nbt.putUuid("witcheryrestitched:useruuid", this.WitcheryRestitched$userUuid);
 		nbt.putString("witcheryrestitched:username", this.WitcheryRestitched$userName);
 	}
 
-	protected void WitcheryRestitched$toInitialChunkDataCustomNbt(CallbackInfoReturnable<NbtCompound> cir) {
-		this.WitcheryRestitched$writeCustomNbt(cir.getReturnValue(), null);
+	@Override
+	public NbtCompound toInitialChunkDataNbt() {
+		return this.createNbt();
 	}
 }

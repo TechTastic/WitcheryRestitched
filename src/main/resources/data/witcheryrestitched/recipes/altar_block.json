@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GWH",
+    "SRS",
+    "CRC"
+  ],
+  "key": {
+    "G": {
+      "item": "witcheryrestitched:breath_of_the_goddess"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "H": {
+      "item": "witcheryrestitched:exhale_of_the_horned_one"
+    },
+    "S": {
+      "item": "minecraft:stone_bricks"
+    },
+    "R": {
+      "item": "witcheryrestitched:rowan_log"
+    },
+    "C": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:altar_block",
+    "count": 3
+  }
+}

@@ -1,19 +1,25 @@
 package net.techtastic.witcheryrestitched.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
-import net.techtastic.witcheryrestitched.item.custom.ArthanaSwordItem;
-import net.techtastic.witcheryrestitched.item.custom.TaglockItem;
-import net.techtastic.witcheryrestitched.item.custom.ToeOfFrogItem;
+import net.techtastic.witcheryrestitched.item.custom.*;
 
 public class ModItems {
 
-    /* ARTHANA */
+    public static final Item ROWAN_BERRIES = registerItem("rowan_berries",
+            new Item(new FabricItemSettings().food(FoodComponents.SWEET_BERRIES).group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    public static final Item KEY = registerItem("key",
+            new KeyItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    /* ALTAR AUGMENTS */
+
+    public static final Item CHALICE = registerItem("chalice",
+            new ChaliceBlockItem(ModBlocks.CHALICE, new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item ARTHANA = registerItem("arthana",
             new ArthanaSwordItem(ToolMaterials.GOLD, 4, 4.0f,

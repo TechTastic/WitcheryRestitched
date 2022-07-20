@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "witcheryrestitched:block/rowan_planks"
+  }
+}

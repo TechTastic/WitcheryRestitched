@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NAN",
+    "NIN",
+    " I "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:gold_nugget"
+    },
+    "A": {
+      "item": "witcheryrestitched:attuned_stone"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:chalice"
+  }
+}

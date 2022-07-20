@@ -41,25 +41,9 @@ public class ArthanaBlock extends BlockWithEntity implements BlockEntityProvider
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    private static final VoxelShape SHAPE_N = Block.createCuboidShape(3, 0, 1, 14, 1, 13);
-    private static final VoxelShape SHAPE_E = Block.createCuboidShape(3, 0, 2, 15, 1, 13);
-    private static final VoxelShape SHAPE_S = Block.createCuboidShape(3, 0, 3, 14, 1, 15);
-    private static final VoxelShape SHAPE_W = Block.createCuboidShape(1, 0, 2, 13, 1, 13);
-
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(FACING)) {
-            case NORTH:
-                return SHAPE_N;
-            case EAST:
-                return SHAPE_E;
-            case SOUTH:
-                return SHAPE_S;
-            case WEST:
-                return SHAPE_W;
-            default:
-                return SHAPE_N;
-        }
+        return Block.createCuboidShape(5, 0, 5, 11, 1, 11);
     }
 
     @Nullable

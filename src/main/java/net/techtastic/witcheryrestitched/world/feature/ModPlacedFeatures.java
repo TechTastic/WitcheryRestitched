@@ -10,7 +10,11 @@ public class ModPlacedFeatures {
             ModConfiguredFeatures.ROWAN_SPAWN, VegetationPlacedFeatures.modifiers(
                     PlacedFeatures.createCountExtraModifier(1, 0.1f, 2)));
 
-    public static final RegistryEntry<PlacedFeature> alder_PLACED = PlacedFeatures.register("alder_placed",
+    public static final RegistryEntry<PlacedFeature> ALDER_PLACED = PlacedFeatures.register("alder_placed",
             ModConfiguredFeatures.ALDER_SPAWN, VegetationPlacedFeatures.modifiers(
+                    PlacedFeatures.createCountExtraModifier(1, 0.1f, 2)));
+
+    public static final RegistryEntry<PlacedFeature> HAWTHORN_PLACED = PlacedFeatures.register("hawthorn_placed",
+            ModConfiguredFeatures.HAWTHORN_SPAWN, VegetationPlacedFeatures.modifiers(
                     PlacedFeatures.createCountExtraModifier(1, 0.1f, 2)));
 }

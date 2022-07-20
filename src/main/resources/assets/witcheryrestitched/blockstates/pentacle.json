@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "witcheryrestitched:block/pentacle"},
+    "facing=east": {"model": "witcheryrestitched:block/pentacle", "y": 90},
+    "facing=south": {"model": "witcheryrestitched:block/pentacle", "y": 180},
+    "facing=west": {"model": "witcheryrestitched:block/pentacle", "y": 270}
+  }
+}

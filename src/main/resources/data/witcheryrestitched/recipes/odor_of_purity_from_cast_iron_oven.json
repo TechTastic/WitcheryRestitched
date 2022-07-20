@@ -1,0 +1,14 @@
+{
+  "type": "witcheryrestitched:cast_iron_oven",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:hawthorn_sapling"
+    }
+  ],
+  "output": {
+    "item": "witcheryrestitched:wood_ash"
+  },
+  "secondaryoutput": {
+    "item": "witcheryrestitched:odor_of_purity"
+  }
+}

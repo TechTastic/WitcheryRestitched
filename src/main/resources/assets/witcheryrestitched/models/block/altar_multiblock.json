@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "witcheryrestitched:block/altar_base",
+    "bottom": "minecraft:block/calcite",
     "side": "witcheryrestitched:block/altar_side_multiblock",
     "top": "witcheryrestitched:block/altar_base_multiblock"
   }

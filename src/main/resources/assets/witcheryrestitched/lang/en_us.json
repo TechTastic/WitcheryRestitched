@@ -51,6 +51,8 @@
   "item.witcheryrestitched.refined_evil": "Refined Evil",
 
   "item.witcheryrestitched.arthana": "Arthana",
+  "item.witcheryrestitched.chalice": "Chalice",
+  "item.witcheryrestitched.key": "Key",
 
   "item.witcheryrestitched.book_brews_and_infusions": "Brews and Infusions",
   "item.witcheryrestitched.book_circle_magic": "Circle Magic",
@@ -73,6 +75,9 @@
   "block.witcheryrestitched.chalice": "Chalice",
   "block.witcheryrestitched.cast_iron_oven": "Cast Iron Oven",
   "block.witcheryrestitched.altar_block": "Altar Block",
+  "block.witcheryrestitched.candelabra": "Candelabra",
+  "block.witcheryrestitched.pentacle": "Pentacle",
+  "block.witcheryrestitched.infinity_egg": "Infinity Egg",
 
   "block.witcheryrestitched.crop_garlic": "Garlic Crop",
   "block.witcheryrestitched.crop_mandrake_root": "Mandrake Root Crop",
@@ -84,6 +89,9 @@
   "block.witcheryrestitched.rowan_leaves": "Rowan Leaves",
   "block.witcheryrestitched.rowan_planks": "Rowan Planks",
   "block.witcheryrestitched.rowan_sapling": "Rowan Sapling",
+  "item.witcheryrestitched.rowan_berries": "Rowan Berries",
+  "block.witcheryrestitched.rowan_pressure_plate": "Rowan Pressure Plate",
+  "block.witcheryrestitched.rowan_button": "Rowan Button",
 
   "block.witcheryrestitched.alder_log": "Alder Log",
   "block.witcheryrestitched.stripped_alder_log": "Stripped Alder Log",
@@ -92,6 +100,18 @@
   "block.witcheryrestitched.alder_leaves": "Alder Leaves",
   "block.witcheryrestitched.alder_planks": "Alder Planks",
   "block.witcheryrestitched.alder_sapling": "Alder Sapling",
+  "block.witcheryrestitched.alder_pressure_plate": "Alder Pressure Plate",
+  "block.witcheryrestitched.alder_button": "Alder Button",
+
+  "block.witcheryrestitched.hawthorn_log": "Hawthorn Log",
+  "block.witcheryrestitched.stripped_hawthorn_log": "Stripped Hawthorn Log",
+  "block.witcheryrestitched.hawthorn_wood": "Hawthorn Wood",
+  "block.witcheryrestitched.stripped_hawthorn_wood": "Stripped Hawthorn Wood",
+  "block.witcheryrestitched.hawthorn_leaves": "Hawthorn Leaves",
+  "block.witcheryrestitched.hawthorn_planks": "Hawthorn Planks",
+  "block.witcheryrestitched.hawthorn_sapling": "Hawthorn Sapling",
+  "block.witcheryrestitched.hawthorn_pressure_plate": "Hawthorn Pressure Plate",
+  "block.witcheryrestitched.hawthorn_button": "Hawthorn Button",
 
   "itemGroup.witcheryrestitched.witcheryrestitched": "Witchery Restitched"
 }

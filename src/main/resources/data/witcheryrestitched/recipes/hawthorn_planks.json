@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L  ",
+    "   ",
+    "   "
+  ],
+  "key": {
+    "L": {
+      "tag": "witcheryrestitched:hawthorn_logs"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:hawthorn_planks",
+    "count": 4
+  }
+}

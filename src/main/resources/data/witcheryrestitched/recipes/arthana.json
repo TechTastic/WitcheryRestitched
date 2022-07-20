@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "NEN",
+    " S "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:gold_nugget"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:arthana"
+  }
+}

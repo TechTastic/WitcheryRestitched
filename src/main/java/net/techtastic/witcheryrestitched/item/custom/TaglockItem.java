@@ -12,11 +12,14 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.text.*;
 import net.minecraft.util.ActionResult;
@@ -26,11 +29,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockLocating;
 import net.minecraft.world.World;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.item.ModItems;
 import net.techtastic.witcheryrestitched.util.ModdedBedBlockInterface;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class TaglockItem extends Item {
@@ -41,11 +46,11 @@ public class TaglockItem extends Item {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		BlockEntity bed = context.getWorld().getBlockEntity(context.getBlockPos());
-		if (!bed.equals(null) && bed.getType().equals(BlockEntityType.BED) && true) {
+		if (!(bed == null) && bed.getType().equals(BlockEntityType.BED) && true) {
 			ModdedBedBlockInterface Ibed = (ModdedBedBlockInterface) bed;
 
 			if (Ibed.WitcheryRestitched$wasUsed()) {
-				taglockEntity(Ibed.WitcheryRestitched$getUserUuid(), Ibed.WitcheryRestitched$getUserName(), context.getPlayer(), context.getStack());
+				taglockEntity(Ibed.WitcheryRestitched$getUserUuid(), Ibed.WitcheryRestitched$getUserName(), context.getPlayer(), context.getStack().copy());
 			}
 
 			return ActionResult.PASS;
@@ -56,10 +61,9 @@ public class TaglockItem extends Item {
 
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-		if (user.getHeadYaw() < (entity.getBodyYaw() + 0.01) || user.getHeadYaw() > (entity.getBodyYaw() - 0.01)) {
-			Text name = entity.getDisplayName();
+		if ((user.getHeadYaw() < (entity.getBodyYaw() + 0.01) || user.getHeadYaw() > (entity.getBodyYaw() - 0.01)) && user.getHorizontalFacing().equals(entity.getHorizontalFacing())) {
 			UUID uuid = entity.getUuid();
-			String displayName = name.getString();
+			String displayName = entity.getDisplayName().getString();
 
 			taglockEntity(uuid, displayName, user, stack);
 		} else {
@@ -72,13 +76,13 @@ public class TaglockItem extends Item {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		String target = "";
+		String target = null;
 		NbtCompound nbt = stack.getOrCreateNbt();
 		
 		if (nbt.contains("witcheryrestitched:targetName")) {
 			target = nbt.getString("witcheryrestitched:targetName");
 		}
-		if ("".equals(target)) {
+		if (target == null) {
 			target = "None";
 		}
 		tooltip.add(Text.of(target).copy().formatted(Formatting.DARK_PURPLE));
@@ -113,21 +117,32 @@ public class TaglockItem extends Item {
 	}
 
 	private static void taglockEntity(UUID uuid, String displayName, PlayerEntity user, ItemStack stack) {
+		NbtCompound nbtData = stack.getOrCreateNbt();
+
+		user.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0f, 5.0f);
+
 		if (stack.getCount() > 1) {
 			stack.decrement(1);
 			ItemStack taglock = new ItemStack(ModItems.TAGLOCK, 1);
 
-			NbtCompound nbtData = stack.getOrCreateNbt();
 			nbtData.putString("witcheryrestitched:targetName", displayName);
 			nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
 			nbtData.putInt("witcheryrestitched:isfull", 1);
+
+			taglock.setNbt(nbtData);
 			
 			user.giveItemStack(taglock);
 		} else {
-			NbtCompound nbtData = stack.getOrCreateNbt();
+			user.setStackInHand(user.getActiveHand(), ItemStack.EMPTY);
+
+			ItemStack taglock = new ItemStack(ModItems.TAGLOCK, 1);
+
 			nbtData.putString("witcheryrestitched:targetName", displayName);
 			nbtData.putUuid("witcheryrestitched:targetUuid", uuid);
 			nbtData.putInt("witcheryrestitched:isfull", 1);
+
+			taglock.setNbt(nbtData);
+			user.giveItemStack(taglock);
 		}
 	}
 }

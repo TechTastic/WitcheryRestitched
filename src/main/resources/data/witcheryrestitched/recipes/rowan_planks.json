@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "L",
-    "",
-    ""
+    "L  ",
+    "   ",
+    "   "
   ],
   "key": {
     "L": {
-      "item": "witcheryrestitched:rowan_log"
+      "tag": "witcheryrestitched:rowan_logs"
     }
   },
   "result": {

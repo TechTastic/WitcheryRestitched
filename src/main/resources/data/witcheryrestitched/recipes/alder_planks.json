@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L  ",
+    "   ",
+    "   "
+  ],
+  "key": {
+    "L": {
+      "tag": "witcheryrestitched:alder_logs"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:alder_planks",
+    "count": 4
+  }
+}

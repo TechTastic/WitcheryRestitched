@@ -2,21 +2,37 @@ package net.techtastic.witcheryrestitched.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.*;
+import net.minecraft.client.util.ParticleUtil;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.*;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
 import net.techtastic.witcheryrestitched.world.feature.tree.AlderSaplingGenerator;
+import net.techtastic.witcheryrestitched.world.feature.tree.HawthornSaplingGenerator;
 import net.techtastic.witcheryrestitched.world.feature.tree.RowanSaplingGenerator;
 
 public class ModBlocks {
 
-    public static final Block CHALICE = registerBlock("chalice",
+    public static final Block PENTACLE = registerBlock("pentacle",
+            new PentacleBlock(FabricBlockSettings.of(Material.METAL).breakInstantly().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block INFINITY_EGG = registerBlock("infinity_egg",
+            new Block(FabricBlockSettings.of(Material.METAL).strength(2f).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block CANDELABRA = registerBlock("candelabra",
+            new CandelabraBlock(FabricBlockSettings.of(Material.METAL).strength(4f).requiresTool().nonOpaque()
+                    .luminance(state -> state.get(CandelabraBlock.LIT) ? 15 : 0), ParticleTypes.FLAME), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block CHALICE = registerBlockWithoutBlockItem("chalice",
             new ChaliceBlock(FabricBlockSettings.of(Material.METAL).strength(4f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     public static final Block ARTHANA = registerBlockWithoutBlockItem("arthana",
@@ -60,6 +76,19 @@ public class ModBlocks {
             new ModSaplingBlock(new RowanSaplingGenerator(),
                     FabricBlockSettings.copy(Blocks.OAK_SAPLING)), ModItemGroup.WITCHERYRESTITCHED);
 
+    public static final Block ROWAN_PRESSURE_PLATE = registerBlock("rowan_pressure_plate",
+            new KeyedPressurePlateBlock(PressurePlateBlock.ActivationRule.MOBS,
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_BUTTON = registerBlock("rowan_button",
+            new KeyedButtonBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool().noCollision()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_FENCE = registerBlock("rowan_fence",
+            new FenceBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_FENCE_GATE = registerBlock("rowan_fence_gate",
+            new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
         // ALDER
 
     public static final Block ALDER_LOG = registerBlock("alder_log",
@@ -82,10 +111,53 @@ public class ModBlocks {
             new ModSaplingBlock(new AlderSaplingGenerator(),
                     FabricBlockSettings.copy(Blocks.OAK_SAPLING)), ModItemGroup.WITCHERYRESTITCHED);
 
-        // HAWTHORN
+    public static final Block ALDER_PRESSURE_PLATE = registerBlock("alder_pressure_plate",
+            new KeyedPressurePlateBlock(PressurePlateBlock.ActivationRule.MOBS,
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_BUTTON = registerBlock("alder_button",
+            new KeyedButtonBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool().noCollision()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_FENCE = registerBlock("alder_fence",
+            new FenceBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_FENCE_GATE = registerBlock("alder_fence_gate",
+            new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    // HAWTHORN
 
     public static final Block HAWTHORN_LOG = registerBlock("hawthorn_log",
             new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_LOG).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+    public static final Block HAWTHORN_WOOD = registerBlock("hawthorn_wood",
+            new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+    public static final Block STRIPPED_HAWTHORN_LOG = registerBlock("stripped_hawthorn_log",
+            new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_LOG).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+    public static final Block STRIPPED_HAWTHORN_WOOD = registerBlock("stripped_hawthorn_wood",
+            new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_WOOD).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_PLANKS = registerBlock("hawthorn_planks",
+            new Block(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_LEAVES = registerBlock("hawthorn_leaves",
+            new LeavesBlock(FabricBlockSettings.copy(Blocks.OAK_LEAVES).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_SAPLING = registerBlock("hawthorn_sapling",
+            new ModSaplingBlock(new HawthornSaplingGenerator(),
+                    FabricBlockSettings.copy(Blocks.OAK_SAPLING)), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_PRESSURE_PLATE = registerBlock("hawthorn_pressure_plate",
+            new KeyedPressurePlateBlock(PressurePlateBlock.ActivationRule.MOBS,
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_BUTTON = registerBlock("hawthorn_button",
+            new KeyedButtonBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool().noCollision()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_FENCE = registerBlock("hawthorn_fence",
+            new FenceBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_FENCE_GATE = registerBlock("hawthorn_fence_gate",
+            new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
 
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {

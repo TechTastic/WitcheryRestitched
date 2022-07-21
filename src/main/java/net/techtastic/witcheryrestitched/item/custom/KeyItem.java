@@ -25,11 +25,9 @@ public class KeyItem extends Item {
             int x = (int) nbt.getDouble("witcheryrestitched:keyX");
             int y = (int) nbt.getDouble("witcheryrestitched:keyY");
             int z = (int) nbt.getDouble("witcheryrestitched:keyZ");
-            String firstText = world.getBlockState(new BlockPos(x, y, z)).getBlock().getName().getString() + " at";
-            String secondText = "X: " + x + ", Y: " + y + ", Z:" + z;
+            String text = "X: " + x + ", Y: " + y + ", Z:" + z;
 
-            tooltip.add(Text.of(firstText).copy().formatted(Formatting.DARK_PURPLE));
-            tooltip.add(Text.of(secondText).copy().formatted(Formatting.DARK_PURPLE));
+            tooltip.add(Text.of(text).copy().formatted(Formatting.DARK_PURPLE));
         }
     }
 }

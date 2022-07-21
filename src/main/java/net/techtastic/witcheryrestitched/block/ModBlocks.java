@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.*;
+import net.techtastic.witcheryrestitched.block.entity.ModBlockEntities;
 import net.techtastic.witcheryrestitched.item.ModItemGroup;
 import net.techtastic.witcheryrestitched.world.feature.tree.AlderSaplingGenerator;
 import net.techtastic.witcheryrestitched.world.feature.tree.HawthornSaplingGenerator;
@@ -89,6 +90,19 @@ public class ModBlocks {
     public static final Block ROWAN_FENCE_GATE = registerBlock("rowan_fence_gate",
             new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
 
+    public static final Block ROWAN_STAIRS = registerBlock("rowan_stairs",
+            new StairsBlock(Blocks.OAK_STAIRS.getDefaultState(),
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_SLAB = registerBlock("rowan_slab",
+            new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_DOOR = registerBlock("rowan_door",
+            new KeyedDoor(ModBlockEntities.ROWAN_DOOR_BLOCK_ENTITY, FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ROWAN_TRAPDOOR = registerBlock("rowan_trapdoor",
+            new KeyedTrapdoor(FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
         // ALDER
 
     public static final Block ALDER_LOG = registerBlock("alder_log",
@@ -124,7 +138,20 @@ public class ModBlocks {
     public static final Block ALDER_FENCE_GATE = registerBlock("alder_fence_gate",
             new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
 
-    // HAWTHORN
+    public static final Block ALDER_STAIRS = registerBlock("alder_stairs",
+            new StairsBlock(Blocks.OAK_STAIRS.getDefaultState(),
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_SLAB = registerBlock("alder_slab",
+            new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_DOOR = registerBlock("alder_door",
+            new KeyedDoor(ModBlockEntities.ALDER_DOOR_BLOCK_ENTITY, FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block ALDER_TRAPDOOR = registerBlock("alder_trapdoor",
+            new KeyedTrapdoor(FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+      // HAWTHORN
 
     public static final Block HAWTHORN_LOG = registerBlock("hawthorn_log",
             new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_LOG).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
@@ -157,6 +184,19 @@ public class ModBlocks {
 
     public static final Block HAWTHORN_FENCE_GATE = registerBlock("hawthorn_fence_gate",
             new KeyedFenceGate(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_STAIRS = registerBlock("hawthorn_stairs",
+            new StairsBlock(Blocks.OAK_STAIRS.getDefaultState(),
+                    FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_SLAB = registerBlock("hawthorn_slab",
+            new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_PLANKS).strength(4.0f).requiresTool()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_DOOR = registerBlock("hawthorn_door",
+            new KeyedDoor(ModBlockEntities.HAWTHORN_DOOR_BLOCK_ENTITY, FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block HAWTHORN_TRAPDOOR = registerBlock("hawthorn_trapdoor",
+            new KeyedTrapdoor(FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
 
 

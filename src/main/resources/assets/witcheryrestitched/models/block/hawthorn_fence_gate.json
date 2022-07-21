@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate",
   "textures": {
-    "texture": "witcheryrestitched:block/alder_planks"
+    "texture": "witcheryrestitched:block/hawthorn_planks"
   }
 }

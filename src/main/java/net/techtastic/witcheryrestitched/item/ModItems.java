@@ -16,6 +16,9 @@ public class ModItems {
     public static final Item KEY = registerItem("key",
             new KeyItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
+    public static final Item KEY_RING = registerItem("key_ring",
+            new KeyRingItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+
     /* ALTAR AUGMENTS */
 
     public static final Item CHALICE = registerItem("chalice",

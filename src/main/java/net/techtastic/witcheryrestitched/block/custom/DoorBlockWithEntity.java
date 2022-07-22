@@ -30,7 +30,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.techtastic.witcheryrestitched.block.entity.DoorBlockEntity;
-import net.techtastic.witcheryrestitched.block.entity.RowanDoorBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class DoorBlockWithEntity extends BlockWithEntity {
@@ -59,7 +58,7 @@ public class DoorBlockWithEntity extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new DoorBlockEntity(type, pos, state);
+        return new DoorBlockEntity(this.type, pos, state);
     }
 
     // DOOR BLOCK STUFF

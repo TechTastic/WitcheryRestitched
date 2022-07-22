@@ -7,6 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
 import net.techtastic.witcheryrestitched.screen.AltarScreen;
 import net.techtastic.witcheryrestitched.screen.CastIronOvenScreen;
+import net.techtastic.witcheryrestitched.screen.KeyRingScreen;
 import net.techtastic.witcheryrestitched.screen.ModScreenHandlers;
 import net.techtastic.witcheryrestitched.util.ModModelPredicateProvider;
 
@@ -32,5 +33,6 @@ public class WitcheryRestitchedClient implements ClientModInitializer {
 
         ScreenRegistry.register(ModScreenHandlers.CAST_IRON_OVEN_SCREEN_HANDLER, CastIronOvenScreen::new);
         ScreenRegistry.register(ModScreenHandlers.ALTAR_SCREEN_HANDLER, AltarScreen::new);
+        ScreenRegistry.register(ModScreenHandlers.KEY_RING_SCREEN_HANDLER, KeyRingScreen::new);
     }
 }

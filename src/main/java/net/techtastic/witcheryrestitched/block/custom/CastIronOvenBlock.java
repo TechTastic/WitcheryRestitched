@@ -18,6 +18,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.entity.CastIronOvenBlockEntity;
 import net.techtastic.witcheryrestitched.block.entity.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;

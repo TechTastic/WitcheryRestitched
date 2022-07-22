@@ -1,7 +1,10 @@
 package net.techtastic.witcheryrestitched.block.custom;
 
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WoodenButtonBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -12,12 +15,25 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.techtastic.witcheryrestitched.block.entity.ButtonBlockEntity;
+import net.techtastic.witcheryrestitched.block.entity.DoorBlockEntity;
 import net.techtastic.witcheryrestitched.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class KeyedButtonBlock extends WoodenButtonBlock {
-    public KeyedButtonBlock(Settings settings) {
-        super(settings);
+import java.util.UUID;
+
+public class KeyedButtonBlock extends WoodenButtonBlockWithEntity {
+    private BlockEntityType<?> type;
+
+    public KeyedButtonBlock(BlockEntityType<?> type, Settings settings) {
+        super(type, settings);
+        this.type = type;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ButtonBlockEntity(this.type, pos, state);
     }
 
     @Override
@@ -27,10 +43,12 @@ public class KeyedButtonBlock extends WoodenButtonBlock {
         if (stack.isOf(ModItems.KEY)) {
             NbtCompound nbt = stack.getOrCreateNbt();
 
-            if (nbt.contains("witcheryrestitched:keyX") && nbt.contains("witcheryrestitched:keyY") && nbt.contains("witcheryrestitched:keyZ")) {
-                BlockPos test = new BlockPos(nbt.getDouble("witcheryrestitched:keyX"), nbt.getDouble("witcheryrestitched:keyY"), nbt.getDouble("witcheryrestitched:keyZ"));
+            if (nbt.contains("witcheryrestitched:keyUuid")) {
+                ButtonBlockEntity button = (ButtonBlockEntity) world.getBlockEntity(pos);
 
-                if (test.equals(pos)) {
+                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid");
+
+                if (keyUuid.equals(button.getButtonUUID())) {
                     return super.onUse(state, world, pos, player, hand, hit);
                 }
             }
@@ -39,12 +57,17 @@ public class KeyedButtonBlock extends WoodenButtonBlock {
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        ButtonBlockEntity button = (ButtonBlockEntity) world.getBlockEntity(pos);
+        UUID newUuid = UUID.randomUUID();
+        button.setButtonUuid(newUuid);
+
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
+        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -60,5 +83,10 @@ public class KeyedButtonBlock extends WoodenButtonBlock {
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

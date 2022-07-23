@@ -16,6 +16,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.techtastic.witcheryrestitched.block.entity.ButtonBlockEntity;
+import net.techtastic.witcheryrestitched.block.entity.DoorBlockEntity;
 import net.techtastic.witcheryrestitched.block.entity.TrapdoorBlockEntity;
 import net.techtastic.witcheryrestitched.item.ModItems;
 import org.jetbrains.annotations.Nullable;
@@ -51,6 +52,17 @@ public class KeyedTrapdoor extends TrapdoorBlockWithEntity {
                     return super.onUse(state, world, pos, player, hand, hit);
                 }
             }
+        } else if (stack.isOf(ModItems.KEY_RING)) {
+            NbtCompound nbt = stack.getOrCreateNbt();
+            for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                TrapdoorBlockEntity trapdoor = (TrapdoorBlockEntity) world.getBlockEntity(pos);
+
+                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                if (keyUuid.equals(trapdoor.getTrapdoorUUID())) {
+                    return super.onUse(state, world, pos, player, hand, hit);
+                }
+            }
         }
         return ActionResult.FAIL;
     }
@@ -58,15 +70,13 @@ public class KeyedTrapdoor extends TrapdoorBlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         TrapdoorBlockEntity trapdoor = (TrapdoorBlockEntity) world.getBlockEntity(pos);
-        UUID newUuid = UUID.randomUUID();
-        trapdoor.setTrapdoorUuid(newUuid);
 
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
-        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
+        nbt.putUuid("witcheryrestitched:keyUuid", trapdoor.getTrapdoorUUID());
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -82,6 +92,8 @@ public class KeyedTrapdoor extends TrapdoorBlockWithEntity {
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+
+        trapdoor.markDirty();
     }
 
     @Override

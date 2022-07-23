@@ -20,11 +20,11 @@ public class FenceGateBlockEntity extends BlockEntity {
 
     private UUID gateUUID = UUID.randomUUID();
 
-    public UUID getDoorUUID() {
+    public UUID getGateUUID() {
         return this.gateUUID;
     }
 
-    public void setDoorUuid(UUID uuid) {
+    public void setGateUuid(UUID uuid) {
         this.gateUUID = uuid;
     }
 

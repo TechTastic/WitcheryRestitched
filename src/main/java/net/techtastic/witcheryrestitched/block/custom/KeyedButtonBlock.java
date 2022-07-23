@@ -15,6 +15,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.entity.ButtonBlockEntity;
 import net.techtastic.witcheryrestitched.block.entity.DoorBlockEntity;
 import net.techtastic.witcheryrestitched.item.ModItems;
@@ -52,6 +53,17 @@ public class KeyedButtonBlock extends WoodenButtonBlockWithEntity {
                     return super.onUse(state, world, pos, player, hand, hit);
                 }
             }
+        } else if (stack.isOf(ModItems.KEY_RING)) {
+            NbtCompound nbt = stack.getOrCreateNbt();
+            for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                ButtonBlockEntity button = (ButtonBlockEntity) world.getBlockEntity(pos);
+
+                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                if (keyUuid.equals(button.getButtonUUID())) {
+                    return super.onUse(state, world, pos, player, hand, hit);
+                }
+            }
         }
         return ActionResult.FAIL;
     }
@@ -59,15 +71,13 @@ public class KeyedButtonBlock extends WoodenButtonBlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         ButtonBlockEntity button = (ButtonBlockEntity) world.getBlockEntity(pos);
-        UUID newUuid = UUID.randomUUID();
-        button.setButtonUuid(newUuid);
 
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
-        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
+        nbt.putUuid("witcheryrestitched:keyUuid", button.getButtonUUID());
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -83,6 +93,8 @@ public class KeyedButtonBlock extends WoodenButtonBlockWithEntity {
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+
+        button.markDirty();
     }
 
     @Override

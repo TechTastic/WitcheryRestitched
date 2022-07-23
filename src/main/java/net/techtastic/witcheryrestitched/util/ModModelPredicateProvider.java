@@ -12,6 +12,7 @@ public class ModModelPredicateProvider {
         registerTaglock(ModItems.TAGLOCK);
         registerToeOfFrog(ModItems.TOE_OF_FROG);
         registerChalice(ModBlocks.CHALICE.asItem());
+        registerKeyRing(ModItems.KEY_RING);
     }
 
     private static void registerTaglock(Item taglock) {
@@ -25,6 +26,13 @@ public class ModModelPredicateProvider {
         FabricModelPredicateProviderRegistry.register(chalice, new Identifier("soup"),
                 (stack, world, entity, seed) -> {
                     return stack.getOrCreateNbt().getInt("witcheryrestitched:soup");
+                });
+    }
+
+    private static void registerKeyRing(Item keyRing) {
+        FabricModelPredicateProviderRegistry.register(keyRing, new Identifier("keys"),
+                (stack, world, entity, seed) -> {
+                    return stack.getOrCreateNbt().getInt("witcheryrestitched:keyCount");
                 });
     }
 

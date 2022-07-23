@@ -46,11 +46,22 @@ public class KeyedFenceGate extends FenceGateBlockWithEntity {
             NbtCompound nbt = stack.getOrCreateNbt();
 
             if (nbt.contains("witcheryrestitched:keyUuid")) {
-                FenceGateBlockEntity door = (FenceGateBlockEntity) world.getBlockEntity(pos);
+                FenceGateBlockEntity gate = (FenceGateBlockEntity) world.getBlockEntity(pos);
 
                 UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid");
 
-                if (keyUuid.equals(door.getDoorUUID())) {
+                if (keyUuid.equals(gate.getGateUUID())) {
+                    return super.onUse(state, world, pos, player, hand, hit);
+                }
+            }
+        } else if (stack.isOf(ModItems.KEY_RING)) {
+            NbtCompound nbt = stack.getOrCreateNbt();
+            for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                FenceGateBlockEntity gate = (FenceGateBlockEntity) world.getBlockEntity(pos);
+
+                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                if (keyUuid.equals(gate.getGateUUID())) {
                     return super.onUse(state, world, pos, player, hand, hit);
                 }
             }
@@ -60,16 +71,14 @@ public class KeyedFenceGate extends FenceGateBlockWithEntity {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        FenceGateBlockEntity door = (FenceGateBlockEntity) world.getBlockEntity(pos);
-        UUID newUuid = UUID.randomUUID();
-        door.setDoorUuid(newUuid);
+        FenceGateBlockEntity gate = (FenceGateBlockEntity) world.getBlockEntity(pos);
 
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
-        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
+        nbt.putUuid("witcheryrestitched:keyUuid", gate.getGateUUID());
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -85,6 +94,8 @@ public class KeyedFenceGate extends FenceGateBlockWithEntity {
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+
+        gate.markDirty();
     }
 
     @Override

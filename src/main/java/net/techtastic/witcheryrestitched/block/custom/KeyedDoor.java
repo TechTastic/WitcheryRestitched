@@ -40,6 +40,17 @@ public class KeyedDoor extends DoorBlockWithEntity {
                     return super.onUse(state, world, pos, player, hand, hit);
                 }
             }
+        } else if (stack.isOf(ModItems.KEY_RING)) {
+            NbtCompound nbt = stack.getOrCreateNbt();
+            for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                DoorBlockEntity door = (DoorBlockEntity) world.getBlockEntity(pos);
+
+                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                if (keyUuid.equals(door.getDoorUUID())) {
+                    return super.onUse(state, world, pos, player, hand, hit);
+                }
+            }
         }
         return ActionResult.FAIL;
     }
@@ -47,15 +58,13 @@ public class KeyedDoor extends DoorBlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         DoorBlockEntity door = (DoorBlockEntity) world.getBlockEntity(pos);
-        UUID newUuid = UUID.randomUUID();
-        door.setDoorUuid(newUuid);
 
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
-        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
+        nbt.putUuid("witcheryrestitched:keyUuid", door.getDoorUUID());
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -71,6 +80,8 @@ public class KeyedDoor extends DoorBlockWithEntity {
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+
+        door.markDirty();
     }
 
     @Override

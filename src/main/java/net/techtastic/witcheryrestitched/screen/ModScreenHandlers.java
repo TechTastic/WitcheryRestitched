@@ -8,7 +8,6 @@ import net.techtastic.witcheryrestitched.WitcheryRestitched;
 public class ModScreenHandlers {
     public static ScreenHandlerType<CastIronOvenScreenHandler> CAST_IRON_OVEN_SCREEN_HANDLER;
     public static ScreenHandlerType<AltarScreenHandler> ALTAR_SCREEN_HANDLER;
-    public static ScreenHandlerType<KeyRingScreenHandler> KEY_RING_SCREEN_HANDLER;
 
     public static void registerAllScreenHandlers() {
         CAST_IRON_OVEN_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(WitcheryRestitched.MOD_ID, "cast_iron_oven"),
@@ -16,8 +15,5 @@ public class ModScreenHandlers {
 
         ALTAR_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(WitcheryRestitched.MOD_ID, "altar"),
                 AltarScreenHandler::new);
-
-        KEY_RING_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(WitcheryRestitched.MOD_ID, "key_ring"),
-                KeyRingScreenHandler::new);
     }
 }

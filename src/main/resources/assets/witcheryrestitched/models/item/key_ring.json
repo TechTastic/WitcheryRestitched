@@ -1,0 +1,44 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "witcheryrestitched:item/key_ring/key_ring_5"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:keys": 0
+      },
+      "model": "witcheryrestitched:item/key_ring_0"
+    },
+    {
+      "predicate": {
+        "minecraft:keys": 1
+      },
+      "model": "witcheryrestitched:item/key_ring_1"
+    },
+    {
+      "predicate": {
+        "minecraft:keys": 2
+      },
+      "model": "witcheryrestitched:item/key_ring_2"
+    },
+    {
+      "predicate": {
+        "minecraft:keys": 3
+      },
+      "model": "witcheryrestitched:item/key_ring_3"
+    },
+    {
+      "predicate": {
+        "minecraft:keys": 4
+      },
+      "model": "witcheryrestitched:item/key_ring_4"
+    },
+    {
+      "predicate": {
+        "minecraft:keys": 5
+      },
+      "model": "witcheryrestitched:item/key_ring_5"
+    }
+  ]
+}

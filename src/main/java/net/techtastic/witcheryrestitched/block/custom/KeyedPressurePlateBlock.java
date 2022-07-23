@@ -13,7 +13,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.entity.ButtonBlockEntity;
+import net.techtastic.witcheryrestitched.block.entity.DoorBlockEntity;
 import net.techtastic.witcheryrestitched.block.entity.PlateBlockEntity;
 import net.techtastic.witcheryrestitched.item.ModItems;
 import org.jetbrains.annotations.Nullable;
@@ -85,13 +87,35 @@ public class KeyedPressurePlateBlock extends PressurePlateBlockWithEntity {
                                 }
                             }
                         }
+                    } else {
+                        ItemStack stack = null;
+                        if (mainHand.isOf(ModItems.KEY_RING)) {
+                            stack = mainHand;
+                        } else if (offHand.isOf(ModItems.KEY_RING)) {
+                            stack = offHand;
+                        }
+
+                        if (stack != null) {
+                            NbtCompound nbt = stack.getOrCreateNbt();
+
+                            if (nbt != null) {
+                                for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                                    PlateBlockEntity plate = (PlateBlockEntity) world.getBlockEntity(pos);
+                                    UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                                    if (keyUuid.equals(plate.getPlateUUID())) {
+                                        return 15;
+                                    }
+                                }
+                            }
+                        }
                     }
                 } else if (entity.isLiving()) {
                     LivingEntity mob = (LivingEntity) entity;
                     ItemStack key = mob.getActiveItem();
-
+                    NbtCompound nbt = null;
                     if (key.isOf(ModItems.KEY)) {
-                        NbtCompound nbt = key.getOrCreateNbt();
+                        nbt = key.getOrCreateNbt();
 
                         if (nbt != null) {
                             PlateBlockEntity plate = (PlateBlockEntity) world.getBlockEntity(pos);
@@ -100,6 +124,20 @@ public class KeyedPressurePlateBlock extends PressurePlateBlockWithEntity {
 
                             if (keyUuid.equals(plate.getPlateUUID())) {
                                 if (!entity.canAvoidTraps()) {
+                                    return 15;
+                                }
+                            }
+                        }
+                    } else if (key.isOf(ModItems.KEY_RING)){
+                        nbt = key.getOrCreateNbt();
+
+                        if (nbt != null) {
+                            for (int i = 1; i < nbt.getInt("witcheryrestitched:keyCount") + 1; i++) {
+                                PlateBlockEntity plate = (PlateBlockEntity) world.getBlockEntity(pos);
+                                WitcheryRestitched.LOGGER.info(i + "");
+                                UUID keyUuid = nbt.getUuid("witcheryrestitched:keyUuid" + i);
+
+                                if (keyUuid.equals(plate.getPlateUUID())) {
                                     return 15;
                                 }
                             }
@@ -115,15 +153,13 @@ public class KeyedPressurePlateBlock extends PressurePlateBlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         PlateBlockEntity plate = (PlateBlockEntity) world.getBlockEntity(pos);
-        UUID newUuid = UUID.randomUUID();
-        plate.setPlateUuid(newUuid);
 
         ItemStack key = new ItemStack(ModItems.KEY, 1);
         NbtCompound nbt = key.getOrCreateNbt();
         nbt.putDouble("witcheryrestitched:keyX", pos.getX());
         nbt.putDouble("witcheryrestitched:keyY", pos.getY());
         nbt.putDouble("witcheryrestitched:keyZ", pos.getZ());
-        nbt.putUuid("witcheryrestitched:keyUuid", newUuid);
+        nbt.putUuid("witcheryrestitched:keyUuid", plate.getPlateUUID());
 
         if (placer.isPlayer()) {
             PlayerEntity player = (PlayerEntity) placer;
@@ -135,10 +171,11 @@ public class KeyedPressurePlateBlock extends PressurePlateBlockWithEntity {
             } else {
                 placer.dropStack(key);
             }
-
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+
+        plate.markDirty();
     }
 
     @Override

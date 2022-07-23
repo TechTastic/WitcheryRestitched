@@ -17,7 +17,7 @@ public class ModItems {
             new KeyItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item KEY_RING = registerItem("key_ring",
-            new KeyRingItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+            new KeyRingitem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     /* ALTAR AUGMENTS */
 

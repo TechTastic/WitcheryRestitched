@@ -53,6 +53,7 @@
   "item.witcheryrestitched.arthana": "Arthana",
   "item.witcheryrestitched.chalice": "Chalice",
   "item.witcheryrestitched.key": "Key",
+  "item.witcheryrestitched.key_ring": "Key Ring",
 
   "item.witcheryrestitched.book_brews_and_infusions": "Brews and Infusions",
   "item.witcheryrestitched.book_circle_magic": "Circle Magic",
@@ -94,6 +95,10 @@
   "block.witcheryrestitched.rowan_button": "Rowan Button",
   "block.witcheryrestitched.rowan_fence": "Rowan Fence",
   "block.witcheryrestitched.rowan_fence_gate": "Rowan Fence Gate",
+  "block.witcheryrestitched.rowan_door": "Rowan Door",
+  "block.witcheryrestitched.rowan_trapdoor": "Rowan Trapdoor",
+  "block.witcheryrestitched.rowan_stairs": "Rowan Stairs",
+  "block.witcheryrestitched.rowan_slab": "Rowan Slab",
 
   "block.witcheryrestitched.alder_log": "Alder Log",
   "block.witcheryrestitched.stripped_alder_log": "Stripped Alder Log",
@@ -106,6 +111,10 @@
   "block.witcheryrestitched.alder_button": "Alder Button",
   "block.witcheryrestitched.alder_fence": "Alder Fence",
   "block.witcheryrestitched.alder_fence_gate": "Alder Fence Gate",
+  "block.witcheryrestitched.alder_door": "Alder Door",
+  "block.witcheryrestitched.alder_trapdoor": "Alder Trapdoor",
+  "block.witcheryrestitched.alder_stairs": "Alder Stairs",
+  "block.witcheryrestitched.alder_slab": "Alder Slab",
 
   "block.witcheryrestitched.hawthorn_log": "Hawthorn Log",
   "block.witcheryrestitched.stripped_hawthorn_log": "Stripped Hawthorn Log",
@@ -118,6 +127,10 @@
   "block.witcheryrestitched.hawthorn_button": "Hawthorn Button",
   "block.witcheryrestitched.hawthorn_fence": "Hawthorn Fence",
   "block.witcheryrestitched.hawthorn_fence_gate": "Hawthorn Fence Gate",
+  "block.witcheryrestitched.hawthorn_door": "Hawthorn Door",
+  "block.witcheryrestitched.hawthorn_trapdoor": "Hawthorn Trapdoor",
+  "block.witcheryrestitched.hawthorn_stairs": "Hawthorn Stairs",
+  "block.witcheryrestitched.hawthorn_slab": "Hawthorn Slab",
 
   "itemGroup.witcheryrestitched.witcheryrestitched": "Witchery Restitched"
 }

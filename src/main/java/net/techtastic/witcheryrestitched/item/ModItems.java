@@ -1,12 +1,14 @@
 package net.techtastic.witcheryrestitched.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
 import net.techtastic.witcheryrestitched.item.custom.*;
+import net.techtastic.witcheryrestitched.util.CustomBoatType;
 
 public class ModItems {
 
@@ -17,7 +19,7 @@ public class ModItems {
             new KeyItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     public static final Item KEY_RING = registerItem("key_ring",
-            new KeyRingitem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+            new KeyRingItem(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     /* ALTAR AUGMENTS */
 
@@ -27,6 +29,21 @@ public class ModItems {
     public static final Item ARTHANA = registerItem("arthana",
             new ArthanaSwordItem(ToolMaterials.GOLD, 4, 4.0f,
                     new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED).maxDamage(251)));
+
+    // BOATS
+
+    public static final Item ROWAN_BOAT = registerItem("rowan_boat",
+            new BoatItem(false, CustomBoatType.ROWAN,
+                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    public static final Item ALDER_BOAT = registerItem("alder_boat",
+            new BoatItem(false, CustomBoatType.ALDER,
+                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    public static final Item HAWTHORN_BOAT = registerItem("hawthorn_boat",
+            new BoatItem(false, CustomBoatType.HAWTHORN,
+                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
+
 
     /* BOOKS */
 

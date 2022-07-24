@@ -32,7 +32,7 @@ public class ModModelPredicateProvider {
     private static void registerKeyRing(Item keyRing) {
         FabricModelPredicateProviderRegistry.register(keyRing, new Identifier("keys"),
                 (stack, world, entity, seed) -> {
-                    return stack.getOrCreateNbt().getInt("witcheryrestitched:keyCount");
+                    return 0.1F * stack.getOrCreateNbt().getInt("witcheryrestitched:keyCount");
                 });
     }
 

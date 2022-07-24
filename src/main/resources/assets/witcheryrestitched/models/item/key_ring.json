@@ -6,37 +6,37 @@
   "overrides": [
     {
       "predicate": {
-        "minecraft:keys": 0
+        "minecraft:keys": 0.0
       },
       "model": "witcheryrestitched:item/key_ring_0"
     },
     {
       "predicate": {
-        "minecraft:keys": 1
+        "minecraft:keys": 0.1
       },
       "model": "witcheryrestitched:item/key_ring_1"
     },
     {
       "predicate": {
-        "minecraft:keys": 2
+        "minecraft:keys": 0.2
       },
       "model": "witcheryrestitched:item/key_ring_2"
     },
     {
       "predicate": {
-        "minecraft:keys": 3
+        "minecraft:keys": 0.3
       },
       "model": "witcheryrestitched:item/key_ring_3"
     },
     {
       "predicate": {
-        "minecraft:keys": 4
+        "minecraft:keys": 0.4
       },
       "model": "witcheryrestitched:item/key_ring_4"
     },
     {
       "predicate": {
-        "minecraft:keys": 5
+        "minecraft:keys": 0.5
       },
       "model": "witcheryrestitched:item/key_ring_5"
     }

@@ -6,7 +6,9 @@
   "mixins": [
     "BedBlockEntityMixin",
     "BedBlockMixin",
-    "VillagerEntityMixin"
+    "VillagerEntityMixin",
+    "BoatTypeMixin",
+    "BoatDropsMixin"
   ],
   "client": [
     "ExampleMixin"

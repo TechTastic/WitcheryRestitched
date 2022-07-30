@@ -28,7 +28,6 @@ import software.bernie.geckolib3.core.IAnimatable;
 
 public class CastIronOvenBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    public static final BooleanProperty LIT = BooleanProperty.of("lit");
 
     public CastIronOvenBlock(Settings settings) {
         super(settings);
@@ -58,7 +57,7 @@ public class CastIronOvenBlock extends BlockWithEntity implements BlockEntityPro
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(LIT, false);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
     @Override
@@ -73,7 +72,7 @@ public class CastIronOvenBlock extends BlockWithEntity implements BlockEntityPro
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(LIT);
+        builder.add(FACING);
     }
 
     /* BLOCK ENTITY */

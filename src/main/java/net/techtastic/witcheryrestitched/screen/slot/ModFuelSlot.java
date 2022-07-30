@@ -19,22 +19,16 @@ public class ModFuelSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
-        WitcheryRestitched.LOGGER.info("THIS WAS CALLED!");
-        WitcheryRestitched.LOGGER.info(stack.toString());
 
         if (stack.isIn(ModTags.Items.CAST_IRON_OVEN_INPUT)) {
-            WitcheryRestitched.LOGGER.info("Item is in Cast Iron Oven Input tag!");
 
             ItemStack inputItem = inventory.getStack(1);
             if (inputItem == ItemStack.EMPTY) {
-                WitcheryRestitched.LOGGER.info("Input is EMPTY!");
 
                 return false;
             } else if (inputItem == stack && stack.getCount() < stack.getMaxCount()) {
                 return false;
             }
-        } else {
-            WitcheryRestitched.LOGGER.info("Here you go, Final Minecraft Dev");
         }
 
         return AbstractFurnaceBlockEntity.canUseAsFuel(stack) || ModFuelSlot.isBucket(stack);

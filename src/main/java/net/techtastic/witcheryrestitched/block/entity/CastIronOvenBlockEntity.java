@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ai.brain.task.WantNewItemTask;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -14,11 +15,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.recipe.CastIronOvenRecipe;
 import net.techtastic.witcheryrestitched.screen.CastIronOvenScreenHandler;
 import net.techtastic.witcheryrestitched.util.ImplementedInventory;
@@ -35,12 +38,11 @@ import java.util.Optional;
 
 import static net.minecraft.util.math.Direction.*;
 import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.FACING;
-import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.LIT;
 
 public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, IAnimatable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
 
-    protected final PropertyDelegate propertyDelegate;
+    public final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 72;
     private int fuelTime = 0;
@@ -121,14 +123,7 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
 
     public static void tick(World world, BlockPos pos, BlockState state, CastIronOvenBlockEntity entity) {
         if(isConsumingFuel(entity)) {
-            if (!state.get(LIT)) {
-                world.setBlockState(pos, state.with(LIT, true));
-            }
             entity.fuelTime--;
-        } else {
-            if (state.get(LIT)) {
-                world.setBlockState(pos, state.with(LIT, false));
-            }
         }
 
         if(hasRecipe(entity)) {
@@ -144,6 +139,8 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
         } else {
             entity.resetProgress();
         }
+
+        entity.markDirty();
     }
 
     private static boolean hasFuelInFuelSlot(CastIronOvenBlockEntity entity) {

@@ -1,0 +1,24 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:mandrake_root"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "witcheryrestitched:tear_of_the_goddess"
+    },
+    {
+      "item": "witcheryrestitched:refined_evil"
+    },
+    {
+      "item": "witcheryrestitched:mutandis_extremis"
+    }
+  ],
+  "output":
+    {
+      "item": "witcheryrestitched:drop_of_luck"
+    }
+}

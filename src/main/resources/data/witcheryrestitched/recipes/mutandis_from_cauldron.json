@@ -1,0 +1,19 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:mandrake_root"
+    },
+    {
+      "item": "witcheryrestitched:exhale_of_the_horned_one"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "output":
+    {
+      "item": "witcheryrestitched:mutandis",
+      "count": 6
+    }
+}

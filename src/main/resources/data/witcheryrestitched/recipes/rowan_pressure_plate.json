@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "   ",
+    "RR "
+  ],
+  "key": {
+    "R": {
+      "item": "witcheryrestitched:rowan_planks"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:rowan_pressure_plate"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:diamond_vapor"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "results": [
+    {
+      "item": "witcheryrestitched:odor_of_purity"
+    },
+    {
+      "item": "witcheryrestitched:reek_of_misfortune"
+    },
+    {
+      "item": "witcheryrestitched:foul_fume"
+    },
+    {
+      "item": "witcheryrestitched:refined_evil"
+    }
+  ],
+  "jarCount": 3
+}

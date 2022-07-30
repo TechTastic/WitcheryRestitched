@@ -1,0 +1,23 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:demon_heart"
+    },
+    {
+      "item": "minecraft:netherrack"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "witcheryrestitched:demonic_blood"
+    },
+    {
+      "item": "witcheryrestitched:demonic_blood"
+    }
+  ],
+  "jarCount": 2
+}

@@ -138,6 +138,10 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
         this.range = x;
     }
 
+    public void drawPower(int x) {
+        this.currentAltarPower = this.currentAltarPower - x;
+    }
+
     // MULTIBLOCK GETTERS AND SETTERS
 
     public boolean isMultiblock() {
@@ -553,7 +557,7 @@ public class AltarBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     }
 
                     if (!alreadyChalice) {
-                        if (testBlock.getBlock() == ModBlocks.CHALICE) {
+                        if (testBlock.isOf(ModBlocks.CHALICE)) {
                             if (testBlock.get(SOUP)) {
                                 powerMultiplier += 2;
                                 alreadyChalice = true;

@@ -1,0 +1,23 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:foul_fume"
+    },
+    {
+      "item": "witcheryrestitched:quicklime"
+    }
+  ],
+  "results": [
+    {
+      "item": "witcheryrestitched:gypsum"
+    },
+    {
+      "item": "witcheryrestitched:oil_of_vitriol"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    }
+  ],
+  "jarCount": 1
+}

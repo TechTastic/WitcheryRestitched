@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.*;
+import net.techtastic.witcheryrestitched.block.custom.CauldronBlock;
 import net.techtastic.witcheryrestitched.block.custom.alder.*;
 import net.techtastic.witcheryrestitched.block.custom.hawthorn.*;
 import net.techtastic.witcheryrestitched.block.custom.rowan.*;
@@ -21,6 +22,9 @@ import net.techtastic.witcheryrestitched.world.feature.tree.HawthornSaplingGener
 import net.techtastic.witcheryrestitched.world.feature.tree.RowanSaplingGenerator;
 
 public class ModBlocks {
+
+    public static final Block ALTAR_SINK_TESTING = registerBlock("altar_sink_testing",
+            new AltarSinkTestingBlock(FabricBlockSettings.of(Material.METAL)), ModItemGroup.WITCHERYRESTITCHED);
 
     public static final Block PENTACLE = registerBlock("pentacle",
             new PentacleBlock(FabricBlockSettings.of(Material.METAL).breakInstantly().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
@@ -38,8 +42,14 @@ public class ModBlocks {
     public static final Block ARTHANA = registerBlockWithoutBlockItem("arthana",
             new ArthanaBlock(FabricBlockSettings.of(Material.METAL).nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
-    public static final Block CAST_IRON_OVEN = registerBlock("cast_iron_oven",
+    public static final Block CAST_IRON_OVEN = registerBlockWithoutBlockItem("cast_iron_oven",
             new CastIronOvenBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block DISTILLERY = registerBlock("distillery",
+            new DistilleryBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
+
+    public static final Block CAULDRON = registerBlock("cauldron",
+            new CauldronBlock(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool().nonOpaque()), ModItemGroup.WITCHERYRESTITCHED);
 
     // CROPS
 

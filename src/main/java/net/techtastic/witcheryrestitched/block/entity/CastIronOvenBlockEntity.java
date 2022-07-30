@@ -23,13 +23,21 @@ import net.techtastic.witcheryrestitched.recipe.CastIronOvenRecipe;
 import net.techtastic.witcheryrestitched.screen.CastIronOvenScreenHandler;
 import net.techtastic.witcheryrestitched.util.ImplementedInventory;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Optional;
 
 import static net.minecraft.util.math.Direction.*;
 import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.FACING;
+import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.LIT;
 
-public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, IAnimatable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
@@ -113,7 +121,14 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
 
     public static void tick(World world, BlockPos pos, BlockState state, CastIronOvenBlockEntity entity) {
         if(isConsumingFuel(entity)) {
+            if (!state.get(LIT)) {
+                world.setBlockState(pos, state.with(LIT, true));
+            }
             entity.fuelTime--;
+        } else {
+            if (state.get(LIT)) {
+                world.setBlockState(pos, state.with(LIT, false));
+            }
         }
 
         if(hasRecipe(entity)) {
@@ -232,5 +247,36 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
 
             return 10 + northNeighbor + southNeighbor + aboveNeighbor;
         }
+    }
+
+    // ANIMATIONS
+
+    private AnimationFactory factory = new AnimationFactory(this);
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController<CastIronOvenBlockEntity>
+                (this, "controller", 0, this::predicate));
+    }
+
+    private <E extends IAnimatable>PlayState predicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("open").addAnimation("close"));
+
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void onOpen(PlayerEntity player) {
+        ImplementedInventory.super.onOpen(player);
+    }
+
+    @Override
+    public void onClose(PlayerEntity player) {
+        ImplementedInventory.super.onClose(player);
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
     }
 }

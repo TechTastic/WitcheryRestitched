@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "   ",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "witcheryrestitched:hawthorn_planks"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:hawthorn_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "witcheryrestitched:mutandis"
+    }
+  ],
+  "output":
+    {
+      "item": "witcheryrestitched:mutandis_extremis"
+    }
+}

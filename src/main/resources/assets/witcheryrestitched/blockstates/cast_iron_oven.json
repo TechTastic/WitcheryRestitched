@@ -3,6 +3,6 @@
     "facing=north": {"model": "witcheryrestitched:block/cast_iron_oven"},
     "facing=east": {"model": "witcheryrestitched:block/cast_iron_oven", "y": 90},
     "facing=south": {"model": "witcheryrestitched:block/cast_iron_oven", "y": 180},
-    "facing=west": {"model": "witcheryrestitched:block/cast_iron_oven", "y": 270}
+    "facing=west": {"model": "witcheryrestitched:block/cast_iron_oven", "y": 270},
   }
 }

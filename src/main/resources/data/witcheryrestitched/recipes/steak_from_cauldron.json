@@ -1,0 +1,12 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:beef"
+    }
+  ],
+  "output":
+    {
+      "item": "minecraft:cooked_beef"
+    }
+}

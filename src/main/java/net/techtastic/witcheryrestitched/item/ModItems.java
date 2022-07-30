@@ -8,7 +8,6 @@ import net.minecraft.util.registry.Registry;
 import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.ModBlocks;
 import net.techtastic.witcheryrestitched.item.custom.*;
-import net.techtastic.witcheryrestitched.util.CustomBoatType;
 
 public class ModItems {
 
@@ -29,21 +28,6 @@ public class ModItems {
     public static final Item ARTHANA = registerItem("arthana",
             new ArthanaSwordItem(ToolMaterials.GOLD, 4, 4.0f,
                     new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED).maxDamage(251)));
-
-    // BOATS
-
-    public static final Item ROWAN_BOAT = registerItem("rowan_boat",
-            new BoatItem(false, CustomBoatType.ROWAN,
-                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
-
-    public static final Item ALDER_BOAT = registerItem("alder_boat",
-            new BoatItem(false, CustomBoatType.ALDER,
-                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
-
-    public static final Item HAWTHORN_BOAT = registerItem("hawthorn_boat",
-            new BoatItem(false, CustomBoatType.HAWTHORN,
-                    new FabricItemSettings().maxCount(1).group(ModItemGroup.WITCHERYRESTITCHED)));
-
 
     /* BOOKS */
 
@@ -244,6 +228,12 @@ public class ModItems {
 
     public static final Item HEART_OF_GOLD = registerItem("heart_of_gold",
             new Item(new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
+
+    // ANIMATED BLOCKITEMS AND ITEMS
+
+    public static final Item CAST_IRON_OVEN_ITEM = registerItem("cast_iron_oven",
+            new CastIronOvenItem(ModBlocks.CAST_IRON_OVEN,
+                    new FabricItemSettings().group(ModItemGroup.WITCHERYRESTITCHED)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(WitcheryRestitched.MOD_ID, name), item);

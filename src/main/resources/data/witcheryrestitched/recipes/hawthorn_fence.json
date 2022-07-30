@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "RSR",
+    "RSR"
+  ],
+  "key": {
+    "R": {
+      "item": "witcheryrestitched:hawthorn_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:hawthorn_fence",
+    "count": 3
+  }
+}

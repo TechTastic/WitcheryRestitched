@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "SRS",
+    "SRS"
+  ],
+  "key": {
+    "R": {
+      "item": "witcheryrestitched:alder_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:alder_fence_gate"
+  }
+}

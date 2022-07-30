@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "   ",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "witcheryrestitched:alder_planks"
+    }
+  },
+  "result": {
+    "item": "witcheryrestitched:alder_slab",
+    "count": 6
+  }
+}

@@ -15,6 +15,14 @@ public class ModBlockEntities {
     public static BlockEntityType<AltarBlockEntity> ALTAR;
     public static BlockEntityType<ArthanaBlockEntity> ARTHANA;
 
+    // ALTAR SINKS
+
+    public static BlockEntityType<AltarPowerSinkEntity> ALTAR_POWER_SINK_ENTITY;
+    public static BlockEntityType<DistilleryBlockEntity> DISTILLERY;
+    public static BlockEntityType<CauldronBlockEntity> CAULDRON;
+
+    // WOOD STUFFS
+
     public static BlockEntityType<RowanDoorBlockEntity> ROWAN_DOOR_BLOCK_ENTITY;
     public static BlockEntityType<RowanFenceGateBlockEntity> ROWAN_FENCE_GATE_BLOCK_ENTITY;
     public static BlockEntityType<RowanButtonBlockEntity> ROWAN_BUTTON_BLOCK_ENTITY;
@@ -49,7 +57,25 @@ public class ModBlockEntities {
                     FabricBlockEntityTypeBuilder.create(ArthanaBlockEntity::new,
                             ModBlocks.ARTHANA).build(null));
 
-            //ROWAN
+            // ALTAR POWER SINKS
+
+            ALTAR_POWER_SINK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE,
+                    new Identifier(WitcheryRestitched.MOD_ID, "altar_sink_testing"),
+                    FabricBlockEntityTypeBuilder.create(AltarPowerSinkEntity::new,
+                            ModBlocks.ALTAR_SINK_TESTING).build(null));
+
+            DISTILLERY = Registry.register(Registry.BLOCK_ENTITY_TYPE,
+                    new Identifier(WitcheryRestitched.MOD_ID, "distillery"),
+                    FabricBlockEntityTypeBuilder.create(DistilleryBlockEntity::new,
+                            ModBlocks.DISTILLERY).build(null));
+
+            CAULDRON = Registry.register(Registry.BLOCK_ENTITY_TYPE,
+                    new Identifier(WitcheryRestitched.MOD_ID, "cauldron"),
+                    FabricBlockEntityTypeBuilder.create(CauldronBlockEntity::new,
+                            ModBlocks.CAULDRON).build(null));
+
+            // WOOD STUFFS
+                // ROWAN
 
             ROWAN_DOOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(WitcheryRestitched.MOD_ID, "rowan_door"),
@@ -71,7 +97,7 @@ public class ModBlockEntities {
                     new Identifier(WitcheryRestitched.MOD_ID, "rowan_trapdoor"),
                     FabricBlockEntityTypeBuilder.create(RowanTrapdoorBlockEntity::new, ModBlocks.ROWAN_TRAPDOOR).build(null));
 
-            // ALDER
+                // ALDER
 
             ALDER_DOOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(WitcheryRestitched.MOD_ID, "alder_door"),
@@ -93,7 +119,7 @@ public class ModBlockEntities {
                     new Identifier(WitcheryRestitched.MOD_ID, "alder_trapdoor"),
                     FabricBlockEntityTypeBuilder.create(AlderTrapdoorBlockEntity::new, ModBlocks.ALDER_TRAPDOOR).build(null));
 
-            // HAWTHORN
+                // HAWTHORN
 
             HAWTHORN_DOOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(WitcheryRestitched.MOD_ID, "hawthorn_door"),

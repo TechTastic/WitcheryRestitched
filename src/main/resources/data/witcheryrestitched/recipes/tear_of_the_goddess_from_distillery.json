@@ -1,0 +1,26 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:breath_of_the_goddess"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    }
+  ],
+  "results": [
+    {
+      "item": "witcheryrestitched:tear_of_the_goddess"
+    },
+    {
+      "item": "witcheryrestitched:whiff_of_magic"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "witcheryrestitched:foul_fume"
+    }
+  ],
+  "jarCount": 3
+}

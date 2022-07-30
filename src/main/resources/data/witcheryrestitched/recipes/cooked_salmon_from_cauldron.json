@@ -1,0 +1,12 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:salmon"
+    }
+  ],
+  "output":
+    {
+      "item": "minecraft:cooked_salmon"
+    }
+}

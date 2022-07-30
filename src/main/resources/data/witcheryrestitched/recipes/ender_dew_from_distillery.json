@@ -1,0 +1,25 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "results": [
+    {
+      "item": "witcheryrestitched:ender_dew",
+      "count": 2
+    },
+    {
+      "item": "witcheryrestitched:ender_dew",
+      "count": 2
+    },
+    {
+      "item": "witcheryrestitched:ender_dew"
+    },
+    {
+      "item": "witcheryrestitched:whiff_of_magic"
+    }
+  ],
+  "jarCount": 6
+}

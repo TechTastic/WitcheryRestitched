@@ -1,0 +1,25 @@
+{
+  "type": "witcheryrestitched:distillery",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:demon_heart"
+    },
+    {
+      "item": "witcheryrestitched:diamond_vapor"
+    }
+  ],
+  "results": [
+    {
+      "item": "witcheryrestitched:demonic_blood",
+      "count": 2
+    },
+    {
+      "item": "witcheryrestitched:demonic_blood",
+      "count": 2
+    },
+    {
+      "item": "witcheryrestitched:refined_evil"
+    }
+  ],
+  "jarCount": 4
+}

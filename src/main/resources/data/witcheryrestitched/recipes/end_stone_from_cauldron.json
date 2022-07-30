@@ -1,0 +1,22 @@
+{
+  "type": "witcheryrestitched:cauldron",
+  "ingredients": [
+    {
+      "item": "witcheryrestitched:mandrake_root"
+    },
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:end_stone"
+    },
+    {
+      "item": "witcheryrestitched:mutandis_extremis"
+    }
+  ],
+  "output":
+    {
+      "item": "minecraft:end_stone",
+      "count": 2
+    }
+}

@@ -1,5 +1,6 @@
 package net.techtastic.witcheryrestitched.screen;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -16,7 +17,7 @@ public class CastIronOvenScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
 
     public CastIronOvenScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(5), new ArrayPropertyDelegate(4));
+        this(syncId, playerInventory, new SimpleInventory(5), new ArrayPropertyDelegate(5));
     }
 
     public CastIronOvenScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -39,7 +40,16 @@ public class CastIronOvenScreenHandler extends ScreenHandler {
         addProperties(delegate);
     }
 
-    public  boolean isCrafting() { return propertyDelegate.get(0) > 0; }
+    @Override
+    public void close(PlayerEntity player) {
+        player.getWorld().updateListeners(player.getBlockPos(), player.getBlockStateAtPos(), player.getBlockStateAtPos(), Block.NOTIFY_LISTENERS);
+
+        propertyDelegate.set(4, 0);
+
+        super.close(player);
+    }
+
+    public boolean isCrafting() { return propertyDelegate.get(0) > 0; }
 
     public boolean hasFuel() { return propertyDelegate.get(2) > 0; }
 

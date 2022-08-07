@@ -1,7 +1,10 @@
 package net.techtastic.witcheryrestitched.block.entity.client;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,13 +32,9 @@ public class CastIronOvenBlockModel extends AnimatedGeoModel<CastIronOvenBlockEn
     }
 
     public Identifier getTexture(CastIronOvenBlockEntity oven) {
-        WitcheryRestitched.LOGGER.info(oven.propertyDelegate.get(2) + "");
-
-        switch (oven.propertyDelegate.get(2)) {
-            case 0:
-                return new Identifier(WitcheryRestitched.MOD_ID, "textures/block/cast_iron_oven.png");
-            default:
-                return new Identifier(WitcheryRestitched.MOD_ID, "textures/block/cast_iron_oven_lit.png");
+        if (oven.isConsumingFuel(oven)) {
+            return new Identifier(WitcheryRestitched.MOD_ID, "textures/block/cast_iron_oven_lit.png");
         }
+        return new Identifier(WitcheryRestitched.MOD_ID, "textures/block/cast_iron_oven.png");
     }
 }

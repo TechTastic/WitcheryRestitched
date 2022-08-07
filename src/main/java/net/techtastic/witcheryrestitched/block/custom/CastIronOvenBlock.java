@@ -1,5 +1,6 @@
 package net.techtastic.witcheryrestitched.block.custom;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -103,6 +104,10 @@ public class CastIronOvenBlock extends BlockWithEntity implements BlockEntityPro
                 player.openHandledScreen(screenHandlerFactory);
             }
         }
+
+        CastIronOvenBlockEntity oven = (CastIronOvenBlockEntity) world.getBlockEntity(pos);
+        oven.usingPlayer = player;
+        oven.isOpen = true;
 
         return ActionResult.SUCCESS;
     }

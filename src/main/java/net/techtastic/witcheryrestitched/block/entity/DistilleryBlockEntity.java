@@ -1,11 +1,13 @@
 package net.techtastic.witcheryrestitched.block.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
@@ -19,7 +21,10 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.techtastic.witcheryrestitched.WitcheryRestitched;
 import net.techtastic.witcheryrestitched.block.custom.DistilleryBlock;
+import net.techtastic.witcheryrestitched.item.ModItemGroup;
+import net.techtastic.witcheryrestitched.item.ModItems;
 import net.techtastic.witcheryrestitched.recipe.CastIronOvenRecipe;
 import net.techtastic.witcheryrestitched.recipe.DistilleryRecipe;
 import net.techtastic.witcheryrestitched.screen.CastIronOvenScreenHandler;
@@ -121,6 +126,10 @@ public class DistilleryBlockEntity extends BlockEntity implements IAltarPowerSin
     // TICKER
 
     public static void tick(World world, BlockPos pos, BlockState state, DistilleryBlockEntity entity) {
+        boolean isUsed = state.get(DistilleryBlock.USED);
+        ItemStack jarSlot = entity.inventory.get(2).copy();
+        int stateJars = state.get(DistilleryBlock.JARS);
+
         if (entity.getCachedAltar().equals(pos)) {
             BlockPos newAltar = entity.locateNearestAltar(world, pos);
             if (newAltar != null && entity.isWithinAltarRange(world, pos, (AltarBlockEntity) world.getBlockEntity(newAltar))) {
@@ -153,6 +162,8 @@ public class DistilleryBlockEntity extends BlockEntity implements IAltarPowerSin
             if (hasRecipe(entity)) {
                 if (entity.attemptAltarPowerDraw(world, (AltarBlockEntity) world.getBlockEntity(entity.getCachedAltar()), 1)) {
                     entity.powerProgress++;
+
+                    isUsed = true;
                 }
 
                 if (entity.powerProgress > entity.maxPowerProgress) {
@@ -165,6 +176,8 @@ public class DistilleryBlockEntity extends BlockEntity implements IAltarPowerSin
                 }
             } else {
                 entity.resetProgress();
+
+                isUsed = false;
             }
         } else {
             entity.hasPower = 0;
@@ -174,6 +187,24 @@ public class DistilleryBlockEntity extends BlockEntity implements IAltarPowerSin
             entity.setTicks(1);
         } else {
             entity.setTicks(entity.getTicks() + 1);
+        }
+
+        WitcheryRestitched.LOGGER.info(jarSlot + "");
+        WitcheryRestitched.LOGGER.info(ItemStack.EMPTY + "");
+        WitcheryRestitched.LOGGER.info(new ItemStack(Blocks.AIR.asItem()) + "");
+
+        //BlockState defaultState = state.getBlock().getDefaultState();
+
+        if (jarSlot.equals(ItemStack.EMPTY)) {
+            WitcheryRestitched.LOGGER.info("THIS WAS REACHED");
+            //world.setBlockState(pos, defaultState.with(DistilleryBlock.USED, isUsed).with(DistilleryBlock.FACING, state.get(DistilleryBlock.FACING)));
+            world.setBlockState(pos, state.with(DistilleryBlock.JARS, 0).with(DistilleryBlock.USED, isUsed));
+        } else {
+            if (jarSlot.getCount() >= 4) {
+                world.setBlockState(pos, state.with(DistilleryBlock.JARS, 4).with(DistilleryBlock.USED, isUsed));
+            } else {
+                world.setBlockState(pos, state.with(DistilleryBlock.JARS, jarSlot.getCount()).with(DistilleryBlock.USED, isUsed));
+            }
         }
 
         entity.markDirty();

@@ -1,9 +1,11 @@
 package net.techtastic.witcheryrestitched.block.entity;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.entity.ai.brain.task.WantNewItemTask;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -29,6 +31,7 @@ import net.techtastic.witcheryrestitched.recipe.CastIronOvenRecipe;
 import net.techtastic.witcheryrestitched.screen.CastIronOvenScreenHandler;
 import net.techtastic.witcheryrestitched.util.ImplementedInventory;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -38,6 +41,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static net.minecraft.util.math.Direction.*;
 import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.FACING;
@@ -45,11 +49,13 @@ import static net.techtastic.witcheryrestitched.block.custom.CastIronOvenBlock.F
 public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, IAnimatable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
 
-    public final PropertyDelegate propertyDelegate;
+    protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 72;
     private int fuelTime = 0;
     private int maxFuelTime = 0;
+
+    public PlayerEntity usingPlayer = null;
 
     public CastIronOvenBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CAST_IRON_OVEN, pos, state);
@@ -62,6 +68,7 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
                     case 1: return CastIronOvenBlockEntity.this.maxProgress;
                     case 2: return CastIronOvenBlockEntity.this.fuelTime;
                     case 3: return CastIronOvenBlockEntity.this.maxFuelTime;
+                    case 4: return CastIronOvenBlockEntity.this.getOpen();
                     default: return 0;
                 }
             }
@@ -73,14 +80,30 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
                     case 1: CastIronOvenBlockEntity.this.maxProgress = value; break;
                     case 2: CastIronOvenBlockEntity.this.fuelTime = value; break;
                     case 3: CastIronOvenBlockEntity.this.maxFuelTime = value; break;
+                    case 4: CastIronOvenBlockEntity.this.setOpen(value); break;
                 }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 5;
             }
         };
+    }
+
+    public int getOpen() {
+        if (this.isOpen) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public void setOpen(int i) {
+        if (i == 1) {
+            this.isOpen = true;
+        } else {
+            this.isOpen = false;
+        }
     }
 
     @Override
@@ -136,15 +159,15 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, CastIronOvenBlockEntity entity) {
-        if(isConsumingFuel(entity)) {
+        if(entity.isConsumingFuel(entity)) {
             entity.fuelTime--;
         }
 
         if(hasRecipe(entity)) {
-            if(hasFuelInFuelSlot(entity) && !isConsumingFuel(entity)) {
+            if(hasFuelInFuelSlot(entity) && !entity.isConsumingFuel(entity)) {
                 entity.consumeFuel();
             }
-            if(isConsumingFuel(entity)) {
+            if(entity.isConsumingFuel(entity)) {
                 entity.progress++;
                 if(entity.progress > entity.maxProgress) {
                     craftItem(entity);
@@ -155,13 +178,15 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
         }
 
         entity.markDirty();
+
+        world.updateListeners(pos, state, world.getBlockState(pos), Block.NOTIFY_LISTENERS);
     }
 
     private static boolean hasFuelInFuelSlot(CastIronOvenBlockEntity entity) {
         return !entity.getStack(0).isEmpty();
     }
 
-    private static boolean isConsumingFuel(CastIronOvenBlockEntity entity) {
+    public boolean isConsumingFuel(CastIronOvenBlockEntity entity) {
         return entity.fuelTime > 0;
     }
 
@@ -266,24 +291,33 @@ public class CastIronOvenBlockEntity extends BlockEntity implements NamedScreenH
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<CastIronOvenBlockEntity>
-                (this, "controller", 0, this::predicate));
+        animationData.addAnimationController(new AnimationController<CastIronOvenBlockEntity>(this, "controller", 0, this::predicate));
+
+        /*AnimationController controller = new AnimationController(this, "controller", 7, animationEvent -> {
+
+            if (this.isOpen) {
+                animationEvent.getController().setAnimation(new AnimationBuilder().addAnimation("animation.cast_iron_oven.open").addAnimation("animation.cast_iron_oven.opened", true));
+            } else {
+                animationEvent.getController().setAnimation(new AnimationBuilder().addAnimation("animation.cast_iron_oven.close").addAnimation("animation.cast_iron_oven.idle", true));
+            }
+            return PlayState.CONTINUE;
+        });
+
+        animationData.addAnimationController(controller);*/
     }
+
+    public boolean isOpen = false;
 
     private <E extends IAnimatable>PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("open").addAnimation("close"));
+        AnimationController<CastIronOvenBlockEntity> controller = event.getController();
+        controller.transitionLengthTicks = 0;
 
+        if (this.isOpen) {
+            controller.setAnimation(new AnimationBuilder().addAnimation("animation.cast_iron_oven.open").addAnimation("animation.cast_iron_oven.opened", true));
+        } else {
+            controller.setAnimation(new AnimationBuilder().addAnimation("animation.cast_iron_oven.close").addAnimation("animation.cast_iron_oven.idle", true));
+        }
         return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void onOpen(PlayerEntity player) {
-        ImplementedInventory.super.onOpen(player);
-    }
-
-    @Override
-    public void onClose(PlayerEntity player) {
-        ImplementedInventory.super.onClose(player);
     }
 
     @Override

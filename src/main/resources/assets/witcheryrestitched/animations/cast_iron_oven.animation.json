@@ -58,6 +58,36 @@
 					}
 				}
 			}
+		},
+		"animation.cast_iron_oven.opened": {
+			"loop": true,
+			"bones": {
+				"RightDoor": {
+					"rotation": {
+						"vector": [0, 120, 0]
+					}
+				},
+				"LeftDoor": {
+					"rotation": {
+						"vector": [0, -120, 0]
+					}
+				}
+			}
+		},
+		"animation.cast_iron_oven.idle": {
+			"loop": true,
+			"bones": {
+				"RightDoor": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"LeftDoor": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

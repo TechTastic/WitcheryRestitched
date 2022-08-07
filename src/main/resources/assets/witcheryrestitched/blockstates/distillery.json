@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "used=false,facing=north,jars=0": {
+      "model": "witcheryrestitched:block/unused_distillery_0"
+    },
+    "used=false,facing=east,jars=0": {
+      "model": "witcheryrestitched:block/unused_distillery_0", "y": 90
+    },
+    "used=false,facing=south,jars=0": {
+      "model": "witcheryrestitched:block/unused_distillery_0", "y": 180
+    },
+    "used=false,facing=west,jars=0": {
+      "model": "witcheryrestitched:block/unused_distillery_0", "y": 270
+    },
+    "used=false,facing=north,jars=1": {
+      "model": "witcheryrestitched:block/unused_distillery_1"
+    },
+    "used=false,facing=east,jars=1": {
+      "model": "witcheryrestitched:block/unused_distillery_1", "y": 90
+    },
+    "used=false,facing=south,jars=1": {
+      "model": "witcheryrestitched:block/unused_distillery_1", "y": 180
+    },
+    "used=false,facing=west,jars=1": {
+      "model": "witcheryrestitched:block/unused_distillery_1", "y": 270
+    },
+    "used=false,facing=north,jars=2": {
+      "model": "witcheryrestitched:block/unused_distillery_2"
+    },
+    "used=false,facing=east,jars=2": {
+      "model": "witcheryrestitched:block/unused_distillery_2", "y": 90
+    },
+    "used=false,facing=south,jars=2": {
+      "model": "witcheryrestitched:block/unused_distillery_2", "y": 180
+    },
+    "used=false,facing=west,jars=2": {
+      "model": "witcheryrestitched:block/unused_distillery_2", "y": 270
+    },
+    "used=false,facing=north,jars=3": {
+      "model": "witcheryrestitched:block/unused_distillery_3"
+    },
+    "used=false,facing=east,jars=3": {
+      "model": "witcheryrestitched:block/unused_distillery_3", "y": 90
+    },
+    "used=false,facing=south,jars=3": {
+      "model": "witcheryrestitched:block/unused_distillery_3", "y": 180
+    },
+    "used=false,facing=west,jars=3": {
+      "model": "witcheryrestitched:block/unused_distillery_3", "y": 270
+    },
+    "used=false,facing=north,jars=4": {
+      "model": "witcheryrestitched:block/unused_distillery_4"
+    },
+    "used=false,facing=east,jars=4": {
+      "model": "witcheryrestitched:block/unused_distillery_4", "y": 90
+    },
+    "used=false,facing=south,jars=4": {
+      "model": "witcheryrestitched:block/unused_distillery_4", "y": 180
+    },
+    "used=false,facing=west,jars=4": {
+      "model": "witcheryrestitched:block/unused_distillery_4", "y": 270
+    },
+    "used=true,facing=north,jars=0": {
+      "model": "witcheryrestitched:block/used_distillery_0"
+    },
+    "used=true,facing=east,jars=0": {
+      "model": "witcheryrestitched:block/used_distillery_0", "y": 90
+    },
+    "used=true,facing=south,jars=0": {
+      "model": "witcheryrestitched:block/used_distillery_0", "y": 180
+    },
+    "used=true,facing=west,jars=0": {
+      "model": "witcheryrestitched:block/used_distillery_0", "y": 270
+    },
+    "used=true,facing=north,jars=1": {
+      "model": "witcheryrestitched:block/used_distillery_1"
+    },
+    "used=true,facing=east,jars=1": {
+      "model": "witcheryrestitched:block/used_distillery_1", "y": 90
+    },
+    "used=true,facing=south,jars=1": {
+      "model": "witcheryrestitched:block/used_distillery_1", "y": 180
+    },
+    "used=true,facing=west,jars=1": {
+      "model": "witcheryrestitched:block/used_distillery_1", "y": 270
+    },
+    "used=true,facing=north,jars=2": {
+      "model": "witcheryrestitched:block/used_distillery_2"
+    },
+    "used=true,facing=east,jars=2": {
+      "model": "witcheryrestitched:block/used_distillery_2", "y": 90
+    },
+    "used=true,facing=south,jars=2": {
+      "model": "witcheryrestitched:block/used_distillery_2", "y": 180
+    },
+    "used=true,facing=west,jars=2": {
+      "model": "witcheryrestitched:block/used_distillery_2", "y": 270
+    },
+    "used=true,facing=north,jars=3": {
+      "model": "witcheryrestitched:block/used_distillery_3"
+    },
+    "used=true,facing=east,jars=3": {
+      "model": "witcheryrestitched:block/used_distillery_3", "y": 90
+    },
+    "used=true,facing=south,jars=3": {
+      "model": "witcheryrestitched:block/used_distillery_3", "y": 180
+    },
+    "used=true,facing=west,jars=3": {
+      "model": "witcheryrestitched:block/used_distillery_3", "y": 270
+    },
+    "used=true,facing=north,jars=4": {
+      "model": "witcheryrestitched:block/used_distillery_4"
+    },
+    "used=true,facing=east,jars=4": {
+      "model": "witcheryrestitched:block/used_distillery_4", "y": 90
+    },
+    "used=true,facing=south,jars=4": {
+      "model": "witcheryrestitched:block/used_distillery_4", "y": 180
+    },
+    "used=true,facing=west,jars=4": {
+      "model": "witcheryrestitched:block/used_distillery_4", "y": 270
+    }
+  }
+}
